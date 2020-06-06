@@ -58,7 +58,7 @@ abstract class Cubit<T> extends Stream<T> {
   @override
   bool get isBroadcast => _controller.stream.isBroadcast;
 
-  /// Closes the stream.
+  /// Closes the `cubit`.
   @mustCallSuper
   Future<void> close() async {
     await _controller.close();
