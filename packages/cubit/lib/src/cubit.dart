@@ -3,8 +3,17 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 
 /// {@template cubit}
-/// `Stream` which exposes a `state` and
-/// can conditionally emit new states asynchronously.
+/// A `cubit` is a reimagined `bloc` (from `package:bloc`)
+/// which removes events and relies on methods to emit new states instead.
+///
+/// ```dart
+/// class CounterCubit extends Cubit<int> {
+///   @override
+///   int get initialState => 0;
+///
+///   void increment() => emit(state + 1);
+/// }
+/// ```
 /// {@endtemplate}
 abstract class Cubit<T> extends Stream<T> {
   /// {@macro cubit}
@@ -22,8 +31,8 @@ abstract class Cubit<T> extends Stream<T> {
 
   T _state;
 
-  /// Updates the cubit's [state] to the provided [state].
-  /// If the `cubit` has been closed, emit will do nothing.
+  /// Updates the [state] of the `cubit` to the provided [state].
+  /// [emit] does nothing if the `cubit` has been closed.
   @protected
   void emit(T state) async {
     if (_controller.isClosed) return;
@@ -31,10 +40,6 @@ abstract class Cubit<T> extends Stream<T> {
     _controller.add(state);
   }
 
-  /// Adds a subscription to the `Stream<T>`.
-  /// Returns a [StreamSubscription] which handles events from
-  /// the `Stream<T>` using the provided [onData], [onError] and [onDone]
-  /// handlers.
   @override
   StreamSubscription<T> listen(
     void Function(T) onData, {
@@ -50,11 +55,10 @@ abstract class Cubit<T> extends Stream<T> {
     );
   }
 
-  /// Returns whether the `Stream<T>` is a broadcast stream.
   @override
   bool get isBroadcast => _controller.stream.isBroadcast;
 
-  /// Closes the stream
+  /// Closes the stream.
   @mustCallSuper
   Future<void> close() async {
     await _controller.close();
