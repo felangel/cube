@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 
 /// {@template cubit}
-/// A `cubit` is a reimagined `bloc` (from `package:bloc`)
+/// A `cubit` is a reimagined [bloc](https://pub.dev/packages/bloc)
 /// which removes events and relies on methods to emit new states instead.
 ///
 /// ```dart
