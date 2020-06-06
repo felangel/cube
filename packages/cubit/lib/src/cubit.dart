@@ -22,17 +22,13 @@ abstract class Cubit<T> extends Stream<T> {
 
   T _state;
 
-  /// Returns a `Future` which will completes when the cubit's
-  /// [state] has successfully been updated to the provided [state].
+  /// Updates the cubit's [state] to the provided [state].
+  /// If the `cubit` has been closed, emit will do nothing.
   @protected
-  Future<void> emit(T state) async {
-    // Wait one tick before updating the internal state.
-    // This ensures that the initial state has propagated.
-    return Future.delayed(Duration.zero, () {
-      if (_controller.isClosed) return;
-      _state = state;
-      _controller.add(state);
-    });
+  void emit(T state) async {
+    if (_controller.isClosed) return;
+    _state = state;
+    _controller.add(state);
   }
 
   /// Adds a subscription to the `Stream<T>`.
@@ -60,8 +56,9 @@ abstract class Cubit<T> extends Stream<T> {
 
   /// Closes the stream
   @mustCallSuper
-  Future<void> close() {
-    return Future.delayed(Duration.zero, _controller.close);
+  Future<void> close() async {
+    await _controller.close();
+    await _controller.stream.drain<T>();
   }
 
   Stream<T> get _stream async* {

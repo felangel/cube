@@ -1,3 +1,9 @@
+# 0.0.2
+
+- **BREAKING**: update `emit` to be a `void` function
+- **BREAKING**: remove artifical wait to guarantee `initialState` is emitted
+- tests: 100% test coverage
+
 # 0.0.1
 
-Initial Release
+- feat: initial release
