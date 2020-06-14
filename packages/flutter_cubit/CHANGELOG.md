@@ -2,6 +2,8 @@
 
 - fix: hide `CubitListenerSingleChildWidget`
 - fix: hide `CubitProviderSingleChildWidget`
+- fix: `ProviderNotFoundException` handling
+- fix: do not leak `Provider` implementation
 
 # 0.0.4
 
