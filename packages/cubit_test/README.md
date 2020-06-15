@@ -2,7 +2,7 @@
 
 [![Pub](https://img.shields.io/pub/v/cubit_test.svg)](https://pub.dev/packages/cubit_test)
 [![build](https://github.com/felangel/cubit/workflows/build/badge.svg)](https://github.com/felangel/cubit/actions)
-[![coverage](https://github.com/felangel/cubit/blob/master/packages/cubit/coverage_badge.svg)](https://github.com/felangel/cubit/actions)
+[![coverage](https://github.com/felangel/cubit/blob/master/packages/cubit_test/coverage_badge.svg)](https://github.com/felangel/cubit/actions)
 
 **WARNING: This is highly experimental**
 
