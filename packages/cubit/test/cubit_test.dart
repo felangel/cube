@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import 'cubits/cubits.dart';
