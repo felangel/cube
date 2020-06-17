@@ -5,8 +5,8 @@ class CounterCubit extends Cubit<int> {
 
   final void Function(Transition<Null, int>) onTransitionCallback;
 
-  void increment() => emit(state + 1);
-  void decrement() => emit(state - 1);
+  void increment({bool track}) => emit(state + 1, track: track);
+  void decrement({bool track}) => emit(state - 1, track: track);
 
   @override
   void onTransition(Transition<Null, int> transition) {

@@ -48,6 +48,31 @@ void main() {
           ],
         );
       });
+
+      test('is not called when track is false', () async {
+        final transitions = <Transition<Null, int>>[];
+        final cubit = CounterCubit(onTransitionCallback: transitions.add);
+        await Future<void>.delayed(
+          Duration.zero,
+          () => cubit.increment(track: false),
+        );
+        await cubit.close();
+        expect(transitions, isEmpty);
+      });
+
+      test('is called with correct transition when track is true', () async {
+        final transitions = <Transition<Null, int>>[];
+        final cubit = CounterCubit(onTransitionCallback: transitions.add);
+        await Future<void>.delayed(
+          Duration.zero,
+          () => cubit.increment(track: true),
+        );
+        await cubit.close();
+        expect(
+          transitions,
+          const [Transition(currentState: 0, event: null, nextState: 1)],
+        );
+      });
     });
 
     group('emit', () {

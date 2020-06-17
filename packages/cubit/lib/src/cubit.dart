@@ -47,14 +47,18 @@ abstract class Cubit<T> extends Stream<T> {
 
   /// Updates the [state] of the `cubit` to the provided [state].
   /// [emit] does nothing if the `cubit` has been closed.
+  ///
+  /// [track] can optionally be provided to determine whether the
+  /// state change should be tracked (reported to `onTransition`).
+  /// Default is `true`.
   @protected
-  void emit(T state) async {
+  void emit(T state, {bool track}) async {
     if (state == _state || _controller.isClosed) return;
-    onTransition(Transition(
-      currentState: _state,
-      event: null,
-      nextState: state,
-    ));
+    if (track != false) {
+      onTransition(
+        Transition(currentState: _state, event: null, nextState: state),
+      );
+    }
     _state = state;
     _controller.add(state);
   }
