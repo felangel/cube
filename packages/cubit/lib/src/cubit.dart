@@ -35,7 +35,7 @@ abstract class Cubit<T> extends Stream<T> {
   /// **Note: `super.onTransition` should always be called last.**
   /// ```dart
   /// @override
-  /// void onTransition(Transition<State> transition) {
+  /// void onTransition(Transition transition) {
   ///   // Custom onTransition logic goes here
   ///
   ///   // Always call super.onTransition with the current transition
@@ -43,14 +43,18 @@ abstract class Cubit<T> extends Stream<T> {
   /// }
   /// ```
   @mustCallSuper
-  void onTransition(Transition<T> transition) {}
+  void onTransition(Transition<Null, T> transition) {}
 
   /// Updates the [state] of the `cubit` to the provided [state].
   /// [emit] does nothing if the `cubit` has been closed.
   @protected
   void emit(T state) async {
     if (state == _state || _controller.isClosed) return;
-    onTransition(Transition(currentState: _state, nextState: state));
+    onTransition(Transition(
+      currentState: _state,
+      event: null,
+      nextState: state,
+    ));
     _state = state;
     _controller.add(state);
   }

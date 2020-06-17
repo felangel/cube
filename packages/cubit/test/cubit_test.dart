@@ -15,7 +15,7 @@ void main() {
 
     group('onTransition', () {
       test('is not called for the initialState', () async {
-        final transitions = <Transition<int>>[];
+        final transitions = <Transition<Null, int>>[];
         final cubit = CounterCubit(onTransitionCallback: transitions.add);
         await cubit.close();
         expect(transitions, isEmpty);
@@ -23,19 +23,19 @@ void main() {
 
       test('is called with correct transition for a single state change',
           () async {
-        final transitions = <Transition<int>>[];
+        final transitions = <Transition<Null, int>>[];
         final cubit = CounterCubit(onTransitionCallback: transitions.add);
         await Future<void>.delayed(Duration.zero, cubit.increment);
         await cubit.close();
         expect(
           transitions,
-          const [Transition<int>(currentState: 0, nextState: 1)],
+          const [Transition(currentState: 0, event: null, nextState: 1)],
         );
       });
 
       test('is called with correct transition for a multiple state changes',
           () async {
-        final transitions = <Transition<int>>[];
+        final transitions = <Transition<Null, int>>[];
         final cubit = CounterCubit(onTransitionCallback: transitions.add);
         await Future<void>.delayed(Duration.zero);
         cubit..increment()..increment();
@@ -43,8 +43,8 @@ void main() {
         expect(
           transitions,
           const [
-            Transition<int>(currentState: 0, nextState: 1),
-            Transition<int>(currentState: 1, nextState: 2),
+            Transition(currentState: 0, event: null, nextState: 1),
+            Transition(currentState: 1, event: null, nextState: 2),
           ],
         );
       });
