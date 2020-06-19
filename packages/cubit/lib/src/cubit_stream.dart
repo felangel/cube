@@ -9,7 +9,7 @@ import 'cubit.dart';
 /// can update its `state` by calling `emit` with a new `state`.
 ///
 /// In most cases, [CubitStream] should only be extended when building
-/// functionality that is not compatible with `Cubit`.
+/// functionality that is otherwise incompatible with `Cubit`.
 ///
 /// Every [CubitStream] requires an `initialState` which will be the
 /// state of the [CubitStream] before `emit` has been called.

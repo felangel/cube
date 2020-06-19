@@ -33,7 +33,7 @@ abstract class Cubit<State> extends CubitStream<State> {
   /// Called whenever a [transition] occurs with the given [transition].
   /// A [transition] occurs when a new `state` is emitted.
   /// [onTransition] is called before the `state` of the `cubit` is updated.
-  /// A great spot to add logging/analytics at the individual `cubit` level.
+  /// [onTransition] is a great spot to add logging/analytics for a specific `cubit`.
   ///
   /// **Note: `super.onTransition` should always be called last.**
   /// ```dart
