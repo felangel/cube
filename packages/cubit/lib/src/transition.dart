@@ -9,10 +9,10 @@ class Transition<State> {
   /// {@macro transition}
   const Transition({@required this.currentState, @required this.nextState});
 
-  /// The current [State] of the `cubit` at the time of the [Transition].
+  /// The current [State] at the time of the [Transition].
   final State currentState;
 
-  /// The next [State] of the `cubit` at the time of the [Transition].
+  /// The next [State] at the time of the [Transition].
   final State nextState;
 
   @override
