@@ -23,21 +23,11 @@ class CounterCubit extends Cubit<int> {
 
 ## Consuming a Cubit
 
-A `cubit` can be consumed by subscribing to the stream of states via `listen`.
-
 ```dart
 void main() async {
-  final cubit = CounterCubit()
-    ..listen(print)
-    ..increment();
+  final cubit = CounterCubit()..increment();
   await cubit.close();
 }
-```
-
-The above code outputs:
-
-```sh
-1
 ```
 
 ## Dart Versions
