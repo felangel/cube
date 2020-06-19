@@ -6,7 +6,7 @@
 
 **WARNING: This is highly experimental**
 
-A `cubit` is a subset of [bloc](https://pub.dev/packages/bloc) which does not contain events and relies on methods to `emit` new states.
+A `cubit` is a subset of [bloc](https://pub.dev/packages/bloc) which has no notion of events and relies on methods to `emit` new states.
 
 Every `cubit` requires an `initialState` which will be the state of the `cubit` before `emit` has been called.
 The current state of a `cubit` can be accessed via the `state` getter.
