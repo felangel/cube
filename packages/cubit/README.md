@@ -6,7 +6,10 @@
 
 **WARNING: This is highly experimental**
 
-An experimental Dart library which exposes a `cubit`. A cubit is a reimagined bloc (from [package:bloc](https://pub.dev/packages/bloc)) which removes events and relies on methods to emit new states instead.
+A `cubit` is a subset of [bloc](https://pub.dev/packages/bloc) which does not contain events and relies on methods to `emit` new states.
+
+Every `cubit` requires an `initialState` which will be the state of the `cubit` before `emit` has been called.
+The current state of a `cubit` can be accessed via the `state` getter.
 
 ## Creating a Cubit
 
@@ -19,6 +22,8 @@ class CounterCubit extends Cubit<int> {
 ```
 
 ## Consuming a Cubit
+
+A `cubit` can be consumed by subscribing to the stream of states via `listen`.
 
 ```dart
 void main() async {
