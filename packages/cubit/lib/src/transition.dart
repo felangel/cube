@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 /// {@template transition}
-/// Occurs when a new `state` is emitted from a `cubit`.
+/// A [Transition] represents the change from one [State] to another.
 /// A [Transition] consists of the [currentState] and [nextState].
 /// {@endtemplate}
 @immutable
@@ -24,12 +24,10 @@ class Transition<State> {
           nextState == other.nextState;
 
   @override
-  int get hashCode {
-    return currentState.hashCode ^ nextState.hashCode;
-  }
+  int get hashCode => currentState.hashCode ^ nextState.hashCode;
 
   @override
   String toString() {
-    return '''Transition { currentState: $currentState, nextState: $nextState }''';
+    return 'Transition { currentState: $currentState, nextState: $nextState }';
   }
 }
