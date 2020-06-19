@@ -33,7 +33,7 @@ void main() {
         );
       });
 
-      test('is called with correct transition for a multiple state changes',
+      test('is called with correct transitions for multiple state changes',
           () async {
         final transitions = <Transition<int>>[];
         final cubit = CounterCubit(onTransitionCallback: transitions.add);

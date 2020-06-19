@@ -69,7 +69,7 @@ abstract class CubitStream<State> extends Stream<State> {
   /// Closes the [CubitStream].
   /// When close is called, new states can no longer be emitted.
   /// All data on the stream is discarded and a `Future` is returned
-  /// which resolves when it is done or an error ocurred.
+  /// which resolves when it is done or an error occurred.
   @mustCallSuper
   Future<void> close() async {
     await _controller.close();
