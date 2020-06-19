@@ -62,7 +62,7 @@ abstract class CubitStream<State> extends Stream<State> {
   }
 
   /// Returns whether the `Stream<State>` is a broadcast stream.
-  /// All [CubitStream]s are broadcast stream.
+  /// Every [CubitStream] is a broadcast stream.
   @override
   bool get isBroadcast => _controller.stream.isBroadcast;
 
