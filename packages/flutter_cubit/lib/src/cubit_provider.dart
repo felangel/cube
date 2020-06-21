@@ -30,8 +30,8 @@ mixin CubitProviderSingleChildWidget on SingleChildWidget {}
 /// );
 /// ```
 /// {@endtemplate}
-class CubitProvider<T extends CubitStream<S>, S> extends SingleChildStatelessWidget
-    with CubitProviderSingleChildWidget {
+class CubitProvider<T extends CubitStream<S>, S> 
+extends SingleChildStatelessWidget with CubitProviderSingleChildWidget {
   /// {@macro cubitprovider}
   CubitProvider({
     Key key,
