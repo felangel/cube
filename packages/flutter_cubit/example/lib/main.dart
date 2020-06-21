@@ -13,7 +13,7 @@ class CubitCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CubitProvider(
+      home: CubitProvider<CounterCubit, int>(
         create: (_) => CounterCubit(),
         child: CounterPage(),
       ),

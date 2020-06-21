@@ -201,7 +201,7 @@ void main() {
       final themeCubit = ThemeCubit();
       var numBuilds = 0;
       await tester.pumpWidget(
-        CubitProvider.value(
+        CubitProvider<ThemeCubit, ThemeData>.value(
           value: themeCubit,
           child: CubitBuilder<ThemeCubit, ThemeData>(
             builder: (context, theme) {

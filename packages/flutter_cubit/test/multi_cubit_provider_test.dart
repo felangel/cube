@@ -30,13 +30,13 @@ class HomePage extends StatelessWidget {
       final providers = <CubitProvider>[];
       if (counterCubitValue != null) {
         providers.add(
-          CubitProvider<CounterCubit>.value(
+          CubitProvider<CounterCubit, int>.value(
             value: counterCubitValue,
           ),
         );
       } else {
         providers.add(
-          CubitProvider<CounterCubit>(
+          CubitProvider<CounterCubit, int>(
             create: (_) => CounterCubit(onClose: onCounterCubitClosed),
           ),
         );
@@ -44,13 +44,13 @@ class HomePage extends StatelessWidget {
 
       if (themeCubitValue != null) {
         providers.add(
-          CubitProvider<ThemeCubit>.value(
+          CubitProvider<ThemeCubit, ThemeData>.value(
             value: themeCubitValue,
           ),
         );
       } else {
         providers.add(
-          CubitProvider<ThemeCubit>(
+          CubitProvider<ThemeCubit, ThemeData>(
             create: (_) => ThemeCubit(onClose: onThemeCubitClosed),
           ),
         );
@@ -180,8 +180,8 @@ void main() {
       await tester.pumpWidget(
         MultiCubitProvider(
           providers: [
-            CubitProvider<CounterCubit>(create: (_) => CounterCubit()),
-            CubitProvider<ThemeCubit>(create: (_) => ThemeCubit())
+            CubitProvider<CounterCubit, int>(create: (_) => CounterCubit()),
+            CubitProvider<ThemeCubit, ThemeData>(create: (_) => ThemeCubit())
           ],
           child: MyApp(),
         ),
@@ -202,8 +202,8 @@ void main() {
       await tester.pumpWidget(
         MultiCubitProvider(
           providers: [
-            CubitProvider(create: (_) => CounterCubit()),
-            CubitProvider(create: (_) => ThemeCubit())
+            CubitProvider<CounterCubit, int>(create: (_) => CounterCubit()),
+            CubitProvider<ThemeCubit, ThemeData>(create: (_) => ThemeCubit())
           ],
           child: MyApp(),
         ),
@@ -223,10 +223,10 @@ void main() {
       await tester.pumpWidget(
         MultiCubitProvider(
           providers: [
-            CubitProvider<CounterCubit>(
+            CubitProvider<CounterCubit, int>(
               create: (_) => CounterCubit()..decrement(),
             ),
-            CubitProvider<ThemeCubit>(
+            CubitProvider<ThemeCubit, ThemeData>(
               create: (_) => ThemeCubit()..toggle(),
             ),
           ],

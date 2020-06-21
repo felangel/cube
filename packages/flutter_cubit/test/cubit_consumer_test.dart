@@ -96,7 +96,7 @@ void main() {
       final counterCubit = CounterCubit();
       final listenerStates = <int>[];
       await tester.pumpWidget(
-        CubitProvider<CounterCubit>.value(
+        CubitProvider<CounterCubit, int>.value(
           value: counterCubit,
           child: MaterialApp(
             home: Scaffold(

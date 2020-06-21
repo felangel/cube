@@ -26,14 +26,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if (_value != null) {
       return MaterialApp(
-        home: CubitProvider<CounterCubit>.value(
+        home: CubitProvider<CounterCubit, int>.value(
           value: _value,
           child: _child,
         ),
       );
     }
     return MaterialApp(
-      home: CubitProvider<CounterCubit>(
+      home: CubitProvider<CounterCubit, int>(
         create: _create,
         child: _child,
       ),
@@ -65,7 +65,7 @@ class _MyStatefulAppState extends State<MyStatefulApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CubitProvider<CounterCubit>(
+      home: CubitProvider<CounterCubit, int>(
         create: (context) => cubit,
         child: Scaffold(
           appBar: AppBar(
@@ -181,7 +181,7 @@ void main() {
     testWidgets('lazily loads cubits by default', (tester) async {
       var createCalled = false;
       await tester.pumpWidget(
-        CubitProvider(
+        CubitProvider<CounterCubit, int>(
           create: (_) {
             createCalled = true;
             return CounterCubit();
@@ -195,7 +195,7 @@ void main() {
     testWidgets('lazily loads cubits by default', (tester) async {
       var createCalled = false;
       await tester.pumpWidget(
-        CubitProvider(
+        CubitProvider<CounterCubit, int>(
           create: (_) {
             createCalled = true;
             return CounterCubit();
@@ -209,7 +209,7 @@ void main() {
     testWidgets('can override lazy loading', (tester) async {
       var createCalled = false;
       await tester.pumpWidget(
-        CubitProvider(
+        CubitProvider<CounterCubit, int>(
           lazy: false,
           create: (_) {
             createCalled = true;
@@ -225,7 +225,7 @@ void main() {
       final key = const Key('__text_count__');
       await tester.pumpWidget(
         MaterialApp(
-          home: CubitProvider(
+          home: CubitProvider<CounterCubit, int>(
             create: (_) => CounterCubit(),
             child: Builder(
               builder: (context) => Text(
@@ -259,7 +259,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: CubitProvider(
+              body: CubitProvider<CounterCubit, int>(
                 create: (context) => CounterCubit(),
                 child: CubitBuilder<CounterCubit, int>(
                   builder: (context, state) => Text('state: $state'),
@@ -278,7 +278,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: CubitProvider(
+              body: CubitProvider<CounterCubit, int>(
                 create: (_) => CounterCubit(),
                 child: CubitBuilder<CounterCubit, int>(
                   builder: (context, state) => Column(
@@ -381,7 +381,7 @@ void main() {
         'ProviderNotFoundException with wrong valueType '
         'is thrown', (tester) async {
       await tester.pumpWidget(
-        CubitProvider<CounterCubit>(
+        CubitProvider<CounterCubit, int>(
           create: (context) => CounterCubit(onClose: Provider.of(context)),
           child: const CounterPage(),
         ),
@@ -395,7 +395,7 @@ void main() {
         'exception is thrown', (tester) async {
       final expectedException = Exception('oops');
       await tester.pumpWidget(
-        CubitProvider<CounterCubit>(
+        CubitProvider<CounterCubit, int>(
           lazy: false,
           create: (_) => throw expectedException,
           child: Container(),
@@ -422,7 +422,7 @@ void main() {
         'should access cubit instance'
         'via CubitProviderExtension', (tester) async {
       await tester.pumpWidget(
-        CubitProvider(
+        CubitProvider<CounterCubit, int>(
           create: (_) => CounterCubit(),
           child: MaterialApp(
             home: Scaffold(

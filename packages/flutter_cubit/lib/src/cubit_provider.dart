@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 /// A function that creates a `Cubit` of type [T].
-typedef CreateCubit<T extends CubitStream<dynamic>> = T Function(
+typedef CreateCubit<T extends CubitStream<S>, S> = T Function(
   BuildContext context,
 );
 
@@ -30,12 +30,12 @@ mixin CubitProviderSingleChildWidget on SingleChildWidget {}
 /// );
 /// ```
 /// {@endtemplate}
-class CubitProvider<T extends CubitStream<Object>>
-    extends SingleChildStatelessWidget with CubitProviderSingleChildWidget {
+class CubitProvider<T extends CubitStream<S>, S> extends SingleChildStatelessWidget
+    with CubitProviderSingleChildWidget {
   /// {@macro cubitprovider}
   CubitProvider({
     Key key,
-    @required CreateCubit<T> create,
+    @required CreateCubit<T, S> create,
     Widget child,
     bool lazy,
   }) : this._(
@@ -128,8 +128,17 @@ class CubitProvider<T extends CubitStream<Object>>
     return InheritedProvider<T>(
       create: _create,
       dispose: _dispose,
-      child: child,
-      lazy: lazy,
+      child: DeferredInheritedProvider<T, S>(
+        lazy: lazy,
+        create: (context) => Provider.of<T>(context, listen: false),
+        startListening: (context, setState, cubit, state) {
+          setState(state);
+          final void Function() onDone = () {};
+          cubit.listen(setState, onDone: onDone);
+          return onDone;
+        },
+        child: child,
+      ),
     );
   }
 }

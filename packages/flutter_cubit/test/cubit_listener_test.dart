@@ -298,7 +298,7 @@ void main() {
       final counterCubit = CounterCubit();
       const expectedStates = [1];
       await tester.pumpWidget(
-        CubitProvider.value(
+        CubitProvider<CounterCubit, int>.value(
           value: counterCubit,
           child: CubitListener<CounterCubit, int>(
             condition: (previous, state) {
