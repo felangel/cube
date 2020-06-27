@@ -9,7 +9,7 @@ class MyCubitObserver extends CubitObserver {
 }
 
 void main() async {
-  Cubit.observer = CubitObserver();
+  Cubit.observer = MyCubitObserver();
   final cubit = CounterCubit()..increment();
   await cubit.close();
 }
