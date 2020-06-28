@@ -19,6 +19,7 @@ void main() {
     print('initialized getTemporaryDirectoryCallCount');
     const MethodChannel('plugins.flutter.io/path_provider')
       ..setMockMethodCallHandler((methodCall) async {
+        print('mockMethodCallHander ${methodCall.method}');
         if (methodCall.method == 'getTemporaryDirectory') {
           print(
             '''getTemporaryDirectoryCallCount++ ${getTemporaryDirectoryCallCount++}''',
@@ -42,6 +43,7 @@ void main() {
 
       test('calls getTemporaryDirectory when storageDirectory is null',
           () async {
+        print('start!');
         await HydratedCubitStorage.getInstance();
         expect(getTemporaryDirectoryCallCount, 1);
       });
