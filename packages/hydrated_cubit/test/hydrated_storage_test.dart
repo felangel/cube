@@ -12,19 +12,15 @@ class MockBox extends Mock implements Box<dynamic> {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  disablePathProviderPlatformOverride = true;
 
   group('HydratedStorage', () {
     final cwd = Directory.current.absolute.path;
     var getTemporaryDirectoryCallCount = 0;
-    print('initialized getTemporaryDirectoryCallCount');
     const MethodChannel('plugins.flutter.io/path_provider')
       ..setMockMethodCallHandler((methodCall) async {
-        print('mockMethodCallHander ${methodCall.method}');
         if (methodCall.method == 'getTemporaryDirectory') {
           getTemporaryDirectoryCallCount++;
-          print(
-            '''getTemporaryDirectoryCallCount++ $getTemporaryDirectoryCallCount''',
-          );
           return cwd;
         }
         throw UnimplementedError();
@@ -37,13 +33,11 @@ void main() {
     group('getInstance', () {
       setUp(() async {
         await (await HydratedCubitStorage.getInstance()).clear();
-        print('reset getTemporaryDirectoryCallCount to 0');
         getTemporaryDirectoryCallCount = 0;
       });
 
       test('calls getTemporaryDirectory when storageDirectory is null',
           () async {
-        print('start!');
         await HydratedCubitStorage.getInstance();
         expect(getTemporaryDirectoryCallCount, 1);
       });
