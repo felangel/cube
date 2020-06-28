@@ -16,9 +16,13 @@ void main() {
   group('HydratedStorage', () {
     final cwd = Directory.current.absolute.path;
     var getTemporaryDirectoryCallCount = 0;
+    print('initialized getTemporaryDirectoryCallCount');
     const MethodChannel('plugins.flutter.io/path_provider')
       ..setMockMethodCallHandler((methodCall) async {
         if (methodCall.method == 'getTemporaryDirectory') {
+          print(
+            '''getTemporaryDirectoryCallCount++ ${getTemporaryDirectoryCallCount++}''',
+          );
           getTemporaryDirectoryCallCount++;
           return cwd;
         }
@@ -32,6 +36,7 @@ void main() {
     group('getInstance', () {
       setUp(() async {
         await (await HydratedCubitStorage.getInstance()).clear();
+        print('reset getTemporaryDirectoryCallCount to 0');
         getTemporaryDirectoryCallCount = 0;
       });
 
