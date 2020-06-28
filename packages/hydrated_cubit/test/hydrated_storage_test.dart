@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:hydrated_cubit/hydrated_cubit.dart';
 import 'package:mockito/mockito.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pedantic/pedantic.dart';
 
 class MockBox extends Mock implements Box<dynamic> {}
@@ -59,8 +60,9 @@ void main() {
       test('calls Hive.init with correct directory', () async {
         await HydratedCubitStorage.getInstance();
         final box = Hive.box<dynamic>('hydrated_box');
+        final directory = await getTemporaryDirectory();
         expect(box, isNotNull);
-        expect(box.path, '$cwd/hydrated_box.hive');
+        expect(box.path, '${directory.path}/hydrated_box.hive');
       });
     });
 
