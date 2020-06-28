@@ -19,13 +19,7 @@ class MyUuidHydratedCubit extends HydratedCubit<String> {
   Map<String, String> toJson(String state) => {'value': state};
 
   @override
-  String fromJson(dynamic json) {
-    try {
-      return json['value'] as String;
-    } on dynamic catch (_) {
-      return null;
-    }
-  }
+  String fromJson(dynamic json) => json['value'] as String;
 }
 
 class MyHydratedCubit extends HydratedCubit<int> {
@@ -40,14 +34,7 @@ class MyHydratedCubit extends HydratedCubit<int> {
   Map<String, int> toJson(int state) => {'value': state};
 
   @override
-  int fromJson(dynamic json) {
-    try {
-      return json['value'] as int;
-    } on dynamic catch (_) {
-      // ignore: avoid_returning_null
-      return null;
-    }
-  }
+  int fromJson(dynamic json) => json['value'] as int;
 }
 
 class MyMultiHydratedCubit extends HydratedCubit<int> {
@@ -64,14 +51,7 @@ class MyMultiHydratedCubit extends HydratedCubit<int> {
   Map<String, int> toJson(int state) => {'value': state};
 
   @override
-  int fromJson(dynamic json) {
-    try {
-      return json['value'] as int;
-    } on dynamic catch (_) {
-      // ignore: avoid_returning_null
-      return null;
-    }
-  }
+  int fromJson(dynamic json) => json['value'] as int;
 }
 
 void main() {
@@ -89,6 +69,25 @@ void main() {
 
       setUp(() {
         cubit = MyHydratedCubit();
+      });
+
+      test('should throw HydratedStorageNotFound when storage is null', () {
+        HydratedCubit.storage = null;
+        expect(
+          () => MyHydratedCubit(),
+          throwsA(isA<HydratedStorageNotFound>()),
+        );
+      });
+
+      test('HydratedStorageNotFound overrides toString', () {
+        expect(
+          // ignore: prefer_const_constructors
+          HydratedStorageNotFound().toString(),
+          'HydratedStorage was accessed before it was initialized.\n'
+          'Please ensure that storage has been initialized.\n\n'
+          'For example:\n\n'
+          'HydratedCubit.storage = await HydratedCubitStorage.getInstance();',
+        );
       });
 
       test('should call storage.write when onTransition is called', () {
@@ -127,6 +126,12 @@ void main() {
         when<dynamic>(storage.read('MyHydratedCubit')).thenReturn(null);
         expect(cubit.state, 0);
         verify<dynamic>(storage.read('MyHydratedCubit')).called(2);
+      });
+
+      test('initial state should return 0 when deserialization fails', () {
+        when<dynamic>(storage.read('MyHydratedCubit'))
+            .thenThrow(Exception('oops'));
+        expect(cubit.state, 0);
       });
 
       test('initial state should return 101 when fromJson returns 101', () {

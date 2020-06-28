@@ -23,10 +23,14 @@ abstract class HydratedStorage {
   Future<void> clear();
 }
 
+/// {@template hydrated_cubit_storage}
 /// Implementation of [HydratedStorage] which uses `PathProvider` and `dart.io`
 /// to persist and retrieve state changes from the local device.
+/// {@endtemplate}
 class HydratedCubitStorage extends HydratedStorage {
-  HydratedCubitStorage._(this._box);
+  /// {@macro hydrated_cubit_storage}
+  @visibleForTesting
+  HydratedCubitStorage(this._box);
 
   /// Returns an instance of `HydratedCubitStorage`.
   /// [storageDirectory] can optionally be provided.
@@ -58,7 +62,7 @@ class HydratedCubitStorage extends HydratedStorage {
         encryptionCipher: encryptionCipher,
       );
 
-      return _instance = HydratedCubitStorage._(box);
+      return _instance = HydratedCubitStorage(box);
     });
   }
 
