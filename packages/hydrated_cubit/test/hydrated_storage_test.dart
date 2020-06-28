@@ -52,8 +52,10 @@ void main() {
 
       test('reuses existing instance when called multiple times', () async {
         final instanceA = await HydratedCubitStorage.getInstance();
+        final beforeCount = getTemporaryDirectoryCallCount;
         final instanceB = await HydratedCubitStorage.getInstance();
-        expect(getTemporaryDirectoryCallCount, 1);
+        final afterCount = getTemporaryDirectoryCallCount;
+        expect(beforeCount, afterCount);
         expect(instanceA, instanceB);
       });
 
