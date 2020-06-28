@@ -44,7 +44,7 @@ abstract class HydratedCubit<State> extends Cubit<State> {
     if (stateJson != null) {
       try {
         storage.write(storageToken, stateJson);
-      } on dynamic catch (_, __) {}
+      } on dynamic catch (_) {}
     }
   }
 
@@ -62,7 +62,7 @@ abstract class HydratedCubit<State> extends Cubit<State> {
       final stateJson = storage.read(storageToken) as Map<dynamic, dynamic>;
       if (stateJson == null) return super.state;
       return fromJson(Map<String, dynamic>.from(stateJson));
-    } on dynamic catch (_, __) {
+    } on dynamic catch (_) {
       return super.state;
     }
   }
@@ -75,7 +75,7 @@ abstract class HydratedCubit<State> extends Cubit<State> {
     if (stateJson != null) {
       try {
         storage.write(storageToken, stateJson);
-      } on dynamic catch (_, __) {}
+      } on dynamic catch (_) {}
     }
     _state = state;
     super.onTransition(transition);

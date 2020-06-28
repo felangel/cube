@@ -56,12 +56,10 @@ class HydratedCubitStorage extends HydratedStorage {
       if (!kIsWeb) {
         Hive.init(directory.path);
       }
-
       final box = await Hive.openBox<dynamic>(
         'hydrated_box',
         encryptionCipher: encryptionCipher,
       );
-
       return _instance = HydratedCubitStorage(box);
     });
   }
