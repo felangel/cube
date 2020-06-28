@@ -53,10 +53,7 @@ class HydratedCubitStorage extends HydratedStorage {
     return _lock.synchronized(() async {
       if (_instance != null) return _instance;
       final directory = storageDirectory ?? await getTemporaryDirectory();
-      if (!kIsWeb) {
-        print('Hive.init(${directory.path}');
-        Hive.init(directory.path);
-      }
+      if (!kIsWeb) Hive.init(directory.path);
       final box = await Hive.openBox<dynamic>(
         'hydrated_box',
         encryptionCipher: encryptionCipher,
