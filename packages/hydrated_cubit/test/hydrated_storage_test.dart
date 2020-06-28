@@ -21,10 +21,10 @@ void main() {
       ..setMockMethodCallHandler((methodCall) async {
         print('mockMethodCallHander ${methodCall.method}');
         if (methodCall.method == 'getTemporaryDirectory') {
-          print(
-            '''getTemporaryDirectoryCallCount++ ${getTemporaryDirectoryCallCount++}''',
-          );
           getTemporaryDirectoryCallCount++;
+          print(
+            '''getTemporaryDirectoryCallCount++ $getTemporaryDirectoryCallCount''',
+          );
           return cwd;
         }
         throw UnimplementedError();
