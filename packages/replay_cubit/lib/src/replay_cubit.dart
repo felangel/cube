@@ -3,9 +3,7 @@ import 'package:cubit/cubit.dart';
 import 'change_stack.dart';
 
 /// {@template hydrated_cubit}
-/// Specialized [Cubit] which handles initializing the [Cubit] state
-/// based on the persisted state. This allows state to be persisted
-/// across application restarts.
+/// Specialized [Cubit] which supports undo and redo operations.
 /// {@endtemplate}
 abstract class ReplayCubit<State> extends Cubit<State> {
   /// {@macro hydrated_cubit}
