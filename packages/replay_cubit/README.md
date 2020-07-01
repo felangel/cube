@@ -26,8 +26,8 @@ class CounterCubit extends ReplayCubit<int> {
 
 ```dart
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   final counterCubit = CounterCubit();
+  counterCubit.increment();
   counterCubit.undo();
   counterCubit.redo();
 }
