@@ -19,12 +19,6 @@ class CounterCubit extends ReplayCubit<int> {
 
   void increment() => emit(state + 1);
   void decrement() => emit(state - 1);
-
-  @override
-  int fromJson(Map<String, dynamic> json) => json['value'] as int;
-
-  @override
-  Map<String, int> toJson(int state) => {'value': state};
 }
 ```
 
