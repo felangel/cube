@@ -9,7 +9,7 @@
 <a href="https://github.com/zepfietje/starware"><img src="https://img.shields.io/badge/Starware-%E2%AD%90-black?labelColor=%23f9b00d" alt="Starware"></a>
 </p>
 
-An extension to the [cubit](https://pub.dev/packages/cubit) state management library which automatically persists and restores cubit states.
+An extension to the [cubit](https://pub.dev/packages/cubit) state management library which adds support for undo and redo.
 
 ## Creating a ReplayCubit
 
