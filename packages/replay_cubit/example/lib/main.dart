@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cubit/flutter_cubit.dart';
 import 'package:replay_cubit/replay_cubit.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
-}
+void main() => runApp(App());
 
 /// A `StatelessWidget` which uses:
 /// * [replay_cubit](https://pub.dev/packages/replay_cubit)
@@ -87,13 +84,13 @@ class CounterPage extends StatelessWidget {
   }
 }
 
-/// {@template hydrated_counter_cubit}
+/// {@template replay_counter_cubit}
 /// A simple [ReplayCubit] which manages an `int` as its state
 /// and exposes three public methods to `increment`, `decrement`, and
 /// `reset` the value of the state.
 /// {@endtemplate}
 class CounterCubit extends ReplayCubit<int> {
-  /// {@macro hydrated_counter_cubit}
+  /// {@macro replay_counter_cubit}
   CounterCubit() : super(0);
 
   /// Increments the `cubit` state by 1.
