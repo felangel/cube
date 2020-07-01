@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cubit/flutter_cubit.dart';
 import 'package:replay_cubit/replay_cubit.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
-}
+void main() => runApp(App());
 
 /// A `StatelessWidget` which uses:
 /// * [replay_cubit](https://pub.dev/packages/replay_cubit)
