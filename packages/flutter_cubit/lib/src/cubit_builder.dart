@@ -56,8 +56,7 @@ typedef CubitBuilderCondition<S> = bool Function(S previous, S current);
 /// be invoked.
 /// The previous `state` will be initialized to the `state` of the [cubit] when
 /// the [CubitBuilder] is initialized.
-/// [buildWhen] is optional and if it isn't implemented, it will default to
-/// `true`.
+/// [buildWhen] is optional and if omitted, it will default to `true`.
 ///
 /// ```dart
 /// CubitBuilder<CubitA, CubitAState>(
@@ -91,7 +90,7 @@ class CubitBuilder<C extends CubitStream<S>, S> extends CubitBuilderBase<C, S> {
   Widget build(BuildContext context, S state) => builder(context, state);
 }
 
-/// {@template cubitbuilderbase}
+/// {@template cubit_builder_base}
 /// Base class for widgets that build themselves based on interaction with
 /// a specified [cubit].
 ///
@@ -101,7 +100,7 @@ class CubitBuilder<C extends CubitStream<S>, S> extends CubitBuilderBase<C, S> {
 /// {@endtemplate}
 abstract class CubitBuilderBase<C extends CubitStream<S>, S>
     extends StatefulWidget {
-  /// {@macro cubitbuilderbase}
+  /// {@macro cubit_builder_base}
   const CubitBuilderBase({Key key, this.cubit, this.buildWhen})
       : super(key: key);
 

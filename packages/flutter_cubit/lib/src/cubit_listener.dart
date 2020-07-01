@@ -63,8 +63,7 @@ typedef CubitListenerCondition<S> = bool Function(S previous, S current);
 /// will be invoked.
 /// The previous `state` will be initialized to the `state` of the [cubit]
 /// when the [CubitListener] is initialized.
-/// [listenWhen] is optional and if it isn't implemented, it will default to
-/// `true`.
+/// [listenWhen] is optional and if omitted, it will default to `true`.
 ///
 /// ```dart
 /// CubitListener<CubitA, CubitAState>(
@@ -103,7 +102,7 @@ class CubitListener<C extends CubitStream<S>, S> extends CubitListenerBase<C, S>
   final Widget child;
 }
 
-/// {@template cubitlistenerbase}
+/// {@template cubit_listener_base}
 /// Base class for widgets that listen to state changes in a specified [cubit].
 ///
 /// A [CubitListenerBase] is stateful and maintains the state subscription.
@@ -112,7 +111,7 @@ class CubitListener<C extends CubitStream<S>, S> extends CubitListenerBase<C, S>
 /// {@endtemplate}
 abstract class CubitListenerBase<C extends CubitStream<S>, S>
     extends SingleChildStatefulWidget {
-  /// {@macro cubitlistenerbase}
+  /// {@macro cubit_listener_base}
   const CubitListenerBase({
     Key key,
     this.listener,
