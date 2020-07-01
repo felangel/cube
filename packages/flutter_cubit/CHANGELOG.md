@@ -1,8 +1,9 @@
 # 0.1.0
 
-- feat: upgrade to `cubit: ^0.1.0`
 - **BREAKING**: rename `condition` in `CubitBuilder` to `buildWhen`
 - **BREAKING**: rename `condition` in `CubitListener` to `listenWhen`
+- feat: upgrade to `cubit: ^0.1.0`
+- docs: inline documentation improvements
 
 # 0.0.12
 
