@@ -2,7 +2,7 @@ import 'package:cubit/cubit.dart';
 
 import 'change_stack.dart';
 
-/// {@template hydrated_cubit}
+/// {@template replay_cubit}
 /// Specialized [Cubit] which supports undo and redo operations.
 /// {@endtemplate}
 abstract class ReplayCubit<State> extends Cubit<State> {
