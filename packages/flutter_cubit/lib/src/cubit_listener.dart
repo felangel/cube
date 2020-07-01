@@ -21,7 +21,7 @@ typedef CubitWidgetListener<S> = void Function(BuildContext context, S state);
 /// with the current `state`.
 typedef CubitListenerCondition<S> = bool Function(S previous, S current);
 
-/// {@template cubitlistener}
+/// {@template cubit_listener}
 /// Takes a [CubitWidgetListener] and an optional [cubit] and invokes
 /// the [listener] in response to `state` changes in the [cubit].
 /// It should be used for functionality that needs to occur only in response to
@@ -53,7 +53,8 @@ typedef CubitListenerCondition<S> = bool Function(S previous, S current);
 ///   child: Container(),
 /// )
 /// ```
-///
+/// {@endtemplate}
+/// {@template cubit_listener_listen_when}
 /// An optional [listenWhen] can be implemented for more granular control
 /// over when [listener] is called.
 /// [listenWhen] will be invoked on each [cubit] `state` change.
@@ -80,7 +81,7 @@ typedef CubitListenerCondition<S> = bool Function(S previous, S current);
 /// {@endtemplate}
 class CubitListener<C extends CubitStream<S>, S> extends CubitListenerBase<C, S>
     with CubitListenerSingleChildWidget {
-  /// {@macro cubitlistener}
+  /// {@macro cubit_listener}
   const CubitListener({
     Key key,
     @required CubitWidgetListener<S> listener,
@@ -133,15 +134,7 @@ abstract class CubitListenerBase<C extends CubitStream<S>, S>
   /// in response to a `state` change.
   final CubitWidgetListener<S> listener;
 
-  /// The [CubitListenerCondition] that the [CubitListenerBase] will invoke.
-  /// The [listenWhen] function will be invoked on each [cubit] `state` change.
-  /// The [listenWhen] takes the previous `state` and current `state` and must
-  /// return a [bool] which determines whether or not the [listener] function
-  /// will be invoked.
-  /// The previous `state` will be initialized to `state` when
-  /// the [CubitListenerBase] is initialized.
-  /// [listenWhen] is optional and if it isn't implemented, it will default to
-  /// `true`.
+  /// {@macro cubit_listener_listen_when}
   final CubitListenerCondition<S> listenWhen;
 
   @override

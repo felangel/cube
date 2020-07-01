@@ -15,7 +15,7 @@ typedef CubitWidgetBuilder<S> = Widget Function(BuildContext context, S state);
 /// determines whether to rebuild [CubitBuilder] with the current `state`.
 typedef CubitBuilderCondition<S> = bool Function(S previous, S current);
 
-/// {@template cubitbuilder}
+/// {@template cubit_builder}
 /// [CubitBuilder] handles building a widget in response to new `states`.
 /// [CubitBuilder] is analogous to [StreamBuilder] but has simplified API to
 /// reduce the amount of boilerplate code needed as well as [cubit]-specific
@@ -46,7 +46,8 @@ typedef CubitBuilderCondition<S> = bool Function(S previous, S current);
 ///   }
 /// )
 /// ```
-///
+/// {@endtemplate}
+/// {@template cubit_builder_build_when}
 /// An optional [buildWhen] can be implemented for more granular control over
 /// how often [CubitBuilder] rebuilds.
 /// [buildWhen] will be invoked on each [cubit] `state` change.
@@ -71,7 +72,7 @@ typedef CubitBuilderCondition<S> = bool Function(S previous, S current);
 /// ```
 /// {@endtemplate}
 class CubitBuilder<C extends CubitStream<S>, S> extends CubitBuilderBase<C, S> {
-  /// {@macro cubitbuilder}
+  /// {@macro cubit_builder}
   const CubitBuilder({
     Key key,
     @required this.builder,
@@ -109,15 +110,7 @@ abstract class CubitBuilderBase<C extends CubitStream<S>, S>
   /// [CubitProvider] and the current `BuildContext`.
   final C cubit;
 
-  /// The [CubitBuilderCondition] that the [CubitBuilderBase] will invoke.
-  /// The [buildWhen] function will be invoked on each [cubit] `state` change.
-  /// The [buildWhen] takes the previous `state` and current `state` and must
-  /// return a [bool] which determines whether or not the `builder` function
-  /// will be invoked.
-  /// The previous `state` will be initialized to `state` when the
-  /// [CubitBuilderBase] is initialized.
-  /// [buildWhen] is optional and if it isn't implemented, it will default to
-  /// `true`.
+  /// {@macro cubit_builder_build_when}
   final CubitBuilderCondition<S> buildWhen;
 
   /// Returns a widget based on the `BuildContext` and current [state].
