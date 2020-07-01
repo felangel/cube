@@ -90,7 +90,7 @@ class CounterPage extends StatelessWidget {
 /// `reset` the value of the state.
 /// {@endtemplate}
 class CounterCubit extends ReplayCubit<int> {
-  /// {@macro hydrated_counter_cubit}
+  /// {@macro replay_counter_cubit}
   CounterCubit() : super(0);
 
   /// Increments the `cubit` state by 1.
