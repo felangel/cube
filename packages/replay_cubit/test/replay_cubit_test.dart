@@ -1,12 +1,8 @@
 import 'dart:async';
 
-import 'package:cubit/cubit.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'cubits/counter_cubit.dart';
-
-class MockCubitObserver extends Mock implements CubitObserver {}
 
 void main() {
   group('cubit', () {
@@ -17,12 +13,6 @@ void main() {
     });
 
     group('undo/redo', () {
-      CubitObserver observer;
-
-      setUp(() {
-        observer = MockCubitObserver();
-        Cubit.observer = observer;
-      });
 
       test('undo check', () async {
         final states = <int>[];
