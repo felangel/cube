@@ -7,10 +7,10 @@ import 'change_stack.dart';
 /// {@endtemplate}
 abstract class ReplayCubit<State> extends Cubit<State> {
   /// {@macro replay_cubit}
-  ReplayCubit(State state, {int maxChanges}) : _changeStack = ChangeStack<State>(max: maxChanges), super(state);
+  ReplayCubit(State state, {int maxChanges})
+      : _changeStack = ChangeStack<State>(max: maxChanges),
+        super(state);
 
-  /// Instance of [Storage] which will be used to
-  /// manage persisting/restoring the [Cubit] state.
   final ChangeStack _changeStack;
 
   State _state;

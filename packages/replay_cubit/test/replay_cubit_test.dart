@@ -13,7 +13,6 @@ void main() {
     });
 
     group('undo/redo', () {
-
       test('undo check', () async {
         final states = <int>[];
         final cubit = CounterCubit();

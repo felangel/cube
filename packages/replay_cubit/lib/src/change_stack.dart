@@ -1,21 +1,17 @@
+// ignore_for_file: public_member_api_docs
 import 'dart:collection';
 
-// ignore: public_member_api_docs
 class ChangeStack<T> {
+  /// Undo/Redo History
+  ChangeStack({this.max});
+
   final Queue<Change<T>> _history = ListQueue();
   final Queue<Change<T>> _redos = ListQueue();
 
-  // ignore: public_member_api_docs
   int max;
 
-  // ignore: public_member_api_docs
   bool get canRedo => _redos.isNotEmpty;
-  // ignore: public_member_api_docs
   bool get canUndo => _history.isNotEmpty && _history.length > 1;
-
-  /// Undo/Redo History
-  // ignore: sort_constructors_first
-  ChangeStack({this.max});
 
   /// Add New Change and Clear Redo Stack
   void add(Change<T> change) {
@@ -57,27 +53,21 @@ class ChangeStack<T> {
   }
 }
 
-// ignore: public_member_api_docs
 class Change<T> {
-  final T _oldValue;
-  final Function _execute;
-  final Function(T oldValue) _undo;
-
-  // ignore: public_member_api_docs
-  // ignore: sort_constructors_first
-  // ignore: public_member_api_docs
   Change(
     this._oldValue,
     this._execute(),
     this._undo(T oldValue),
   );
 
-  // ignore: public_member_api_docs
+  final T _oldValue;
+  final Function _execute;
+  final Function(T oldValue) _undo;
+
   void execute() {
     _execute();
   }
 
-  // ignore: public_member_api_docs
   void undo() {
     _undo(_oldValue);
   }
