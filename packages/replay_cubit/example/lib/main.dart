@@ -5,7 +5,7 @@ import 'package:replay_cubit/replay_cubit.dart';
 
 void main() => runApp(App());
 
-/// A `StatelessWidget` which uses:
+/// A [StatelessWidget] which uses:
 /// * [replay_cubit](https://pub.dev/packages/replay_cubit)
 /// * [flutter_cubit](https://pub.dev/packages/flutter_cubit)
 /// to manage the state of a counter.
