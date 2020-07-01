@@ -84,7 +84,7 @@ class CounterPage extends StatelessWidget {
   }
 }
 
-/// {@template hydrated_counter_cubit}
+/// {@template replay_counter_cubit}
 /// A simple [ReplayCubit] which manages an `int` as its state
 /// and exposes three public methods to `increment`, `decrement`, and
 /// `reset` the value of the state.
