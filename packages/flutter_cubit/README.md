@@ -107,7 +107,7 @@ CubitBuilder<CubitA, CubitAState>(
 )
 ```
 
-If you want fine-grained control over when the builder function is called you can provide an optional `buildWhen` to `CubitBuilder`. `buildWhen` takes the previous cubit state and current cubit state and returns a boolean. If `buildWhen` returns true, `builder` will be called with `state` and the widget will rebuild. If `buildWhen` returns false, `builder` will not be called with `state` and no rebuild will occur.
+For fine-grained control over when the `builder` function is called an optional `buildWhen` can be provided. `buildWhen` takes the previous cubit state and current cubit state and returns a boolean. If `buildWhen` returns true, `builder` will be called with `state` and the widget will rebuild. If `buildWhen` returns false, `builder` will not be called with `state` and no rebuild will occur.
 
 ```dart
 CubitBuilder<CubitA, CubitAState>(
@@ -213,7 +213,7 @@ CubitListener<CubitA, CubitAState>(
 )
 ```
 
-If you want fine-grained control over when the listener function is called you can provide an optional `listenWhen` to `CubitListener`. `listenWhen` takes the previous cubit state and current cubit state and returns a boolean. If `listenWhen` returns true, `listener` will be called with `state`. If `listenWhen` returns false, `listener` will not be called with `state`.
+For fine-grained control over when the `listener` function is called an optional `listenWhen` can be provided. `listenWhen` takes the previous cubit state and current cubit state and returns a boolean. If `listenWhen` returns true, `listener` will be called with `state`. If `listenWhen` returns false, `listener` will not be called with `state`.
 
 ```dart
 CubitListener<CubitA, CubitAState>(

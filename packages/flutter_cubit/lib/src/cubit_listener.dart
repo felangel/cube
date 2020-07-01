@@ -56,8 +56,8 @@ typedef CubitListenerCondition<S> = bool Function(S previous, S current);
 ///
 /// An optional [listenWhen] can be implemented for more granular control
 /// over when [listener] is called.
-/// The [listenWhen] function will be invoked on each [cubit] `state` change.
-/// The [listenWhen] takes the previous `state` and current `state` and must
+/// [listenWhen] will be invoked on each [cubit] `state` change.
+/// [listenWhen] takes the previous `state` and current `state` and must
 /// return a [bool] which determines whether or not the [listener] function
 /// will be invoked.
 /// The previous `state` will be initialized to the `state` of the [cubit]

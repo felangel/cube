@@ -49,8 +49,8 @@ typedef CubitBuilderCondition<S> = bool Function(S previous, S current);
 ///
 /// An optional [buildWhen] can be implemented for more granular control over
 /// how often [CubitBuilder] rebuilds.
-/// The [buildWhen] function will be invoked on each [cubit] `state` change.
-/// The [buildWhen] takes the previous `state` and current `state` and must
+/// [buildWhen] will be invoked on each [cubit] `state` change.
+/// [buildWhen] takes the previous `state` and current `state` and must
 /// return a [bool] which determines whether or not the [builder] function will
 /// be invoked.
 /// The previous `state` will be initialized to the `state` of the [cubit] when
