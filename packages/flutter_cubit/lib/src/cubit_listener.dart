@@ -15,7 +15,7 @@ mixin CubitListenerSingleChildWidget on SingleChildWidget {}
 /// `state` changes.
 typedef CubitWidgetListener<S> = void Function(BuildContext context, S state);
 
-/// Signature for the `condition` function which takes the previous `state`
+/// Signature for the `listenWhen` function which takes the previous `state`
 /// and the current `state` and is responsible for returning a [bool] which
 /// determines whether or not to call [CubitWidgetListener] of [CubitListener]
 /// with the current `state`.
@@ -54,20 +54,20 @@ typedef CubitListenerCondition<S> = bool Function(S previous, S current);
 /// )
 /// ```
 ///
-/// An optional [condition] can be implemented for more granular control
+/// An optional [listenWhen] can be implemented for more granular control
 /// over when [listener] is called.
-/// The [condition] function will be invoked on each [cubit] `state` change.
-/// The [condition] takes the previous `state` and current `state` and must
+/// The [listenWhen] function will be invoked on each [cubit] `state` change.
+/// The [listenWhen] takes the previous `state` and current `state` and must
 /// return a [bool] which determines whether or not the [listener] function
 /// will be invoked.
 /// The previous `state` will be initialized to the `state` of the [cubit]
 /// when the [CubitListener] is initialized.
-/// [condition] is optional and if it isn't implemented, it will default to
+/// [listenWhen] is optional and if it isn't implemented, it will default to
 /// `true`.
 ///
 /// ```dart
 /// CubitListener<CubitA, CubitAState>(
-///   condition: (previous, current) {
+///   listenWhen: (previous, current) {
 ///     // return true/false to determine whether or not
 ///     // to invoke listener with state
 ///   },
@@ -85,7 +85,7 @@ class CubitListener<C extends CubitStream<S>, S> extends CubitListenerBase<C, S>
     Key key,
     @required CubitWidgetListener<S> listener,
     C cubit,
-    CubitListenerCondition<S> condition,
+    CubitListenerCondition<S> listenWhen,
     this.child,
   })  : assert(listener != null),
         super(
@@ -93,7 +93,7 @@ class CubitListener<C extends CubitStream<S>, S> extends CubitListenerBase<C, S>
           child: child,
           listener: listener,
           cubit: cubit,
-          condition: condition,
+          listenWhen: listenWhen,
         );
 
   /// The widget which will be rendered as a descendant of the [CubitListener].
@@ -117,7 +117,7 @@ abstract class CubitListenerBase<C extends CubitStream<S>, S>
     this.listener,
     this.cubit,
     this.child,
-    this.condition,
+    this.listenWhen,
   }) : super(key: key, child: child);
 
   /// The widget which will be rendered as a descendant of the
@@ -134,15 +134,15 @@ abstract class CubitListenerBase<C extends CubitStream<S>, S>
   final CubitWidgetListener<S> listener;
 
   /// The [CubitListenerCondition] that the [CubitListenerBase] will invoke.
-  /// The [condition] function will be invoked on each [cubit] `state` change.
-  /// The [condition] takes the previous `state` and current `state` and must
+  /// The [listenWhen] function will be invoked on each [cubit] `state` change.
+  /// The [listenWhen] takes the previous `state` and current `state` and must
   /// return a [bool] which determines whether or not the [listener] function
   /// will be invoked.
   /// The previous `state` will be initialized to `state` when
   /// the [CubitListenerBase] is initialized.
-  /// [condition] is optional and if it isn't implemented, it will default to
+  /// [listenWhen] is optional and if it isn't implemented, it will default to
   /// `true`.
-  final CubitListenerCondition<S> condition;
+  final CubitListenerCondition<S> listenWhen;
 
   @override
   SingleChildState<CubitListenerBase<C, S>> createState() =>
@@ -190,7 +190,7 @@ class _CubitListenerBaseState<C extends CubitStream<S>, S>
   void _subscribe() {
     if (_cubit != null) {
       _subscription = _cubit.skip(1).listen((state) {
-        if (widget.condition?.call(_previousState, state) ?? true) {
+        if (widget.listenWhen?.call(_previousState, state) ?? true) {
           widget.listener(context, state);
         }
         _previousState = state;

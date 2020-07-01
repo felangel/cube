@@ -104,11 +104,11 @@ class CubitConsumer<C extends CubitStream<S>, S> extends StatelessWidget {
     return CubitListener<C, S>(
       cubit: cubit,
       listener: listener,
-      condition: listenWhen,
+      listenWhen: listenWhen,
       child: CubitBuilder<C, S>(
         cubit: cubit,
         builder: builder,
-        condition: buildWhen,
+        buildWhen: buildWhen,
       ),
     );
   }

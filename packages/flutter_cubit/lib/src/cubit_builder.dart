@@ -10,7 +10,7 @@ import 'cubit_provider.dart';
 /// This is analogous to the `builder` function in [StreamBuilder].
 typedef CubitWidgetBuilder<S> = Widget Function(BuildContext context, S state);
 
-/// Signature for the condition function which takes the previous `state` and
+/// Signature for the `buildWhen` function which takes the previous `state` and
 /// the current `state` and is responsible for returning a [bool] which
 /// determines whether to rebuild [CubitBuilder] with the current `state`.
 typedef CubitBuilderCondition<S> = bool Function(S previous, S current);
@@ -47,20 +47,20 @@ typedef CubitBuilderCondition<S> = bool Function(S previous, S current);
 /// )
 /// ```
 ///
-/// An optional [condition] can be implemented for more granular control over
+/// An optional [buildWhen] can be implemented for more granular control over
 /// how often [CubitBuilder] rebuilds.
-/// The [condition] function will be invoked on each [cubit] `state` change.
-/// The [condition] takes the previous `state` and current `state` and must
+/// The [buildWhen] function will be invoked on each [cubit] `state` change.
+/// The [buildWhen] takes the previous `state` and current `state` and must
 /// return a [bool] which determines whether or not the [builder] function will
 /// be invoked.
 /// The previous `state` will be initialized to the `state` of the [cubit] when
 /// the [CubitBuilder] is initialized.
-/// [condition] is optional and if it isn't implemented, it will default to
+/// [buildWhen] is optional and if it isn't implemented, it will default to
 /// `true`.
 ///
 /// ```dart
 /// CubitBuilder<CubitA, CubitAState>(
-///   condition: (previous, current) {
+///   buildWhen: (previous, current) {
 ///     // return true/false to determine whether or not
 ///     // to rebuild the widget with state
 ///   },
@@ -76,9 +76,9 @@ class CubitBuilder<C extends CubitStream<S>, S> extends CubitBuilderBase<C, S> {
     Key key,
     @required this.builder,
     C cubit,
-    CubitBuilderCondition<S> condition,
+    CubitBuilderCondition<S> buildWhen,
   })  : assert(builder != null),
-        super(key: key, cubit: cubit, condition: condition);
+        super(key: key, cubit: cubit, buildWhen: buildWhen);
 
   /// The [builder] function which will be invoked on each widget build.
   /// The [builder] takes the `BuildContext` and current `state` and
@@ -101,7 +101,7 @@ class CubitBuilder<C extends CubitStream<S>, S> extends CubitBuilderBase<C, S> {
 abstract class CubitBuilderBase<C extends CubitStream<S>, S>
     extends StatefulWidget {
   /// {@macro cubitbuilderbase}
-  const CubitBuilderBase({Key key, this.cubit, this.condition})
+  const CubitBuilderBase({Key key, this.cubit, this.buildWhen})
       : super(key: key);
 
   /// The [cubit] that the [CubitBuilderBase] will interact with.
@@ -110,15 +110,15 @@ abstract class CubitBuilderBase<C extends CubitStream<S>, S>
   final C cubit;
 
   /// The [CubitBuilderCondition] that the [CubitBuilderBase] will invoke.
-  /// The [condition] function will be invoked on each [cubit] `state` change.
-  /// The [condition] takes the previous `state` and current `state` and must
+  /// The [buildWhen] function will be invoked on each [cubit] `state` change.
+  /// The [buildWhen] takes the previous `state` and current `state` and must
   /// return a [bool] which determines whether or not the `builder` function
   /// will be invoked.
   /// The previous `state` will be initialized to `state` when the
   /// [CubitBuilderBase] is initialized.
-  /// [condition] is optional and if it isn't implemented, it will default to
+  /// [buildWhen] is optional and if it isn't implemented, it will default to
   /// `true`.
-  final CubitBuilderCondition<S> condition;
+  final CubitBuilderCondition<S> buildWhen;
 
   /// Returns a widget based on the `BuildContext` and current [state].
   Widget build(BuildContext context, S state);
@@ -171,7 +171,7 @@ class _CubitBuilderBaseState<C extends CubitStream<S>, S>
   void _subscribe() {
     if (_cubit != null) {
       _subscription = _cubit.skip(1).listen((state) {
-        if (widget.condition?.call(_previousState, state) ?? true) {
+        if (widget.buildWhen?.call(_previousState, state) ?? true) {
           setState(() {
             _state = state;
           });
