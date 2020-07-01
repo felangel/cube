@@ -1,0 +1,19 @@
+name: replay_cubit
+description: Undo/Redo for Cubit.
+repository: https://github.com/felangel/cubit
+issue_tracker: https://github.com/felangel/cubit/issues
+homepage: https://github.com/felangel/cubit
+
+version: 0.1.0
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  meta: ^1.1.8
+  cubit: ^0.1.0
+
+dev_dependencies:
+  mockito: ^4.1.1
+  test: ^1.14.6
+  test_coverage: ^0.4.1
