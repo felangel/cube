@@ -6,7 +6,7 @@ import 'change_stack.dart';
 /// Specialized [Cubit] which supports undo and redo operations.
 /// {@endtemplate}
 abstract class ReplayCubit<State> extends Cubit<State> {
-  /// {@macro hydrated_cubit}
+  /// {@macro replay_cubit}
   ReplayCubit(State state, {int maxChanges}) : _changeStack = ChangeStack<State>(max: maxChanges), super(state);
 
   /// Instance of [Storage] which will be used to
