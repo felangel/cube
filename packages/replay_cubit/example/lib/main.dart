@@ -100,7 +100,7 @@ class CounterPage extends StatelessWidget {
 /// and exposes three public methods to `increment`, `decrement`, and
 /// `reset` the value of the state.
 /// {@endtemplate}
-class CounterCubit extends HydratedCubit<int> with ReplayCubitMixin<int> {
+class CounterCubit extends HydratedCubit<int> with ReplayMixin<int> {
   /// {@macro replay_counter_cubit}
   CounterCubit() : super(0);
 

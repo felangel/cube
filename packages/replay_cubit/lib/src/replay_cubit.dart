@@ -41,15 +41,14 @@ part 'change_stack.dart';
 /// * [Cubit] for information about the [ReplayCubit] superclass.
 ///
 /// {@endtemplate}
-abstract class ReplayCubit<State> extends Cubit<State>
-    with ReplayCubitMixin<State> {
+abstract class ReplayCubit<State> extends Cubit<State> with ReplayMixin<State> {
   /// {@macro replay_cubit}
   ReplayCubit(State state, {int limit}) : super(state) {
     this.limit = limit;
   }
 }
 
-mixin ReplayCubitMixin<State> on Cubit<State> {
+mixin ReplayMixin<State> on CubitStream<State> {
   set limit(int limit) {
     _changeStack.limit = limit;
   }
