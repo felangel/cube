@@ -1,5 +1,5 @@
 name: replay_cubit
-description: Undo/Redo for Cubit.
+description: An extension to the cubit state management library which adds support for undo and redo.
 repository: https://github.com/felangel/cubit
 issue_tracker: https://github.com/felangel/cubit/issues
 homepage: https://github.com/felangel/cubit
@@ -10,7 +10,6 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  meta: ^1.1.8
   cubit: ^0.1.0
 
 dev_dependencies:

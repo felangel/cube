@@ -1,38 +1,60 @@
+import 'dart:collection';
 import 'package:cubit/cubit.dart';
 
-import 'change_stack.dart';
+part 'change_stack.dart';
 
 /// {@template replay_cubit}
-/// Specialized [Cubit] which supports undo and redo operations.
+/// A specialized [Cubit] which supports `undo` and `redo` operations.
+///
+/// [ReplayCubit] accepts an optional `limit` which determines
+/// the max size of the history.
+///
+/// A custom [ReplayCubit] can be created by extending [ReplayCubit].
+///
+/// ```dart
+/// class CounterCubit extends ReplayCubit<int> {
+///   CounterCubit() : super(0);
+///
+///   void increment() => emit(state + 1);
+/// }
+/// ```
+///
+/// Then the built-in `undo` and `redo` operations can be used.
+///
+/// ```dart
+/// final cubit = CounterCubit();
+///
+/// cubit.increment();
+/// print(cubit.state); // 1
+///
+/// cubit.undo();
+/// print(cubit.state); // 0
+///
+/// cubit.redo();
+/// print(cubit.state); // 1
+/// ```
+///
+/// The undo/redo history can be destroyed at any time by calling `clear`.
+///
+/// See also:
+///
+/// * [Cubit] for information about the [ReplayCubit] superclass.
+///
 /// {@endtemplate}
 abstract class ReplayCubit<State> extends Cubit<State> {
   /// {@macro replay_cubit}
-  ReplayCubit(State state, {int maxChanges})
-      : _changeStack = ChangeStack<State>(max: maxChanges),
+  ReplayCubit(State state, {int limit})
+      : _changeStack = _ChangeStack<State>(limit: limit),
         super(state);
 
-  final ChangeStack _changeStack;
-
-  State _state;
-
-  @override
-  State get state {
-    if (_state != null) return _state;
-    return super.state;
-  }
+  final _ChangeStack _changeStack;
 
   @override
   void emit(State state) {
-    _changeStack.add(Change<State>(
-      _state,
-      () {
-        _state = state;
-        super.emit(state);
-      },
-      (val) {
-        _state = val;
-        super.emit(val);
-      },
+    _changeStack.add(_Change<State>(
+      this.state,
+      () => super.emit(state),
+      (val) => super.emit(val),
     ));
   }
 

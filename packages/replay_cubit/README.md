@@ -18,7 +18,6 @@ class CounterCubit extends ReplayCubit<int> {
   CounterCubit() : super(0);
 
   void increment() => emit(state + 1);
-  void decrement() => emit(state - 1);
 }
 ```
 
@@ -26,10 +25,19 @@ class CounterCubit extends ReplayCubit<int> {
 
 ```dart
 void main() async {
-  final counterCubit = CounterCubit();
-  counterCubit.increment();
-  counterCubit.undo();
-  counterCubit.redo();
+  final cubit = CounterCubit();
+
+  // trigger a state change
+  cubit.increment();
+  print(cubit.state); // 1
+
+  // undo the change
+  cubit.undo();
+  print(cubit.state); // 0
+
+  // redo the change
+  cubit.redo();
+  print(cubit.state); // 1
 }
 ```
 

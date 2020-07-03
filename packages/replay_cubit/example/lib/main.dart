@@ -15,7 +15,6 @@ class App extends StatelessWidget {
     return CubitProvider<CounterCubit>(
       create: (_) => CounterCubit(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
         home: CounterPage(),
       ),
     );
@@ -32,13 +31,23 @@ class CounterPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Counter'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.undo),
-            onPressed: () => context.cubit<CounterCubit>().undo(),
+          CubitBuilder<CounterCubit, int>(
+            builder: (context, state) {
+              final cubit = context.cubit<CounterCubit>();
+              return IconButton(
+                icon: const Icon(Icons.undo),
+                onPressed: cubit.canUndo ? cubit.undo : null,
+              );
+            },
           ),
-          IconButton(
-            icon: const Icon(Icons.redo),
-            onPressed: () => context.cubit<CounterCubit>().redo(),
+          CubitBuilder<CounterCubit, int>(
+            builder: (context, state) {
+              final cubit = context.cubit<CounterCubit>();
+              return IconButton(
+                icon: const Icon(Icons.redo),
+                onPressed: cubit.canRedo ? cubit.redo : null,
+              );
+            },
           ),
         ],
       ),
@@ -69,13 +78,9 @@ class CounterPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: FloatingActionButton(
               child: const Icon(Icons.delete_forever),
-              onPressed: () async {
-                final counterCubit = context.cubit<CounterCubit>();
-                // ignore: cascade_invocations
-                counterCubit.clear();
-                // ignore: cascade_invocations
-                counterCubit.reset();
-              },
+              onPressed: () => context.cubit<CounterCubit>()
+                ..reset()
+                ..clear(),
             ),
           ),
         ],
