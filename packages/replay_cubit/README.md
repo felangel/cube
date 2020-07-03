@@ -41,6 +41,25 @@ void main() {
 }
 ```
 
+## ReplayCubitMixin
+
+If you wish to be able to use a `ReplayCubit` in conjuction with a different type of cubit like `HydratedCubit`, you can use the `ReplayCubitMixin`.
+
+```dart
+class CounterCubit extends HydratedCubit<int> with ReplayCubitMixin<int> {
+  CounterCubit() : super(0);
+
+  void increment() => emit(state + 1);
+  void decrement() => emit(state - 1);
+
+  @override
+  int fromJson(Map<String, dynamic> json) => json['value'] as int;
+
+  @override
+  Map<String, int> toJson(int state) => {'value': state};
+}
+```
+
 ## Dart Versions
 
 - Dart 2: >= 2.7.0
