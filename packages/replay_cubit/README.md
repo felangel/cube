@@ -41,12 +41,12 @@ void main() {
 }
 ```
 
-## ReplayCubitMixin
+## ReplayMixin
 
-If you wish to be able to use a `ReplayCubit` in conjuction with a different type of cubit like `HydratedCubit`, you can use the `ReplayCubitMixin`.
+If you wish to be able to use a `ReplayCubit` in conjuction with a different type of cubit like `HydratedCubit`, you can use the `ReplayMixin`.
 
 ```dart
-class CounterCubit extends HydratedCubit<int> with ReplayCubitMixin<int> {
+class CounterCubit extends HydratedCubit<int> with ReplayMixin<int> {
   CounterCubit() : super(0);
 
   void increment() => emit(state + 1);

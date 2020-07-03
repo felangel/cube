@@ -1,7 +1,7 @@
 # 0.2.0
 
 - **BREAKING**: rename `clear` to `clearHistory`
-- feat: `ReplayCubitMixin`
+- feat: `ReplayMixin`
 
 # 0.1.0
 

@@ -196,7 +196,7 @@ void main() {
     });
   });
 
-  group('ReplayCubitMixin', () {
+  group('ReplayMixin', () {
     group('initial state', () {
       test('is correct', () {
         expect(CounterCubitMixin().state, 0);
