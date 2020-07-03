@@ -49,11 +49,9 @@ abstract class ReplayCubit<State> extends Cubit<State> with ReplayMixin<State> {
 }
 
 mixin ReplayMixin<State> on CubitStream<State> {
-  set limit(int limit) {
-    _changeStack.limit = limit;
-  }
-
   final _changeStack = _ChangeStack<State>();
+
+  set limit(int limit) => _changeStack.limit = limit;
 
   @override
   void emit(State state) {
