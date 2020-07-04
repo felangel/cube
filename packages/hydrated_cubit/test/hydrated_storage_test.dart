@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:hydrated_cubit/hydrated_cubit.dart';
 import 'package:mockito/mockito.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:pedantic/pedantic.dart';
 
@@ -63,7 +64,7 @@ void main() {
         final box = Hive.box<dynamic>('hydrated_box');
         final directory = await getTemporaryDirectory();
         expect(box, isNotNull);
-        expect(box.path, '${directory.path}/hydrated_box.hive');
+        expect(box.path, p.join(directory.path, 'hydrated_box.hive'));
       });
     });
 
