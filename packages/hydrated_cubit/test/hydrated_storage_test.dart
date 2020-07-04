@@ -27,14 +27,14 @@ void main() {
         throw UnimplementedError();
       });
 
-    tearDownAll(() async {
-      await Hive.deleteBoxFromDisk('hydrated_box');
-    });
-
     group('build', () {
       setUp(() async {
         await (await HydratedStorage.build()).clear();
         getTemporaryDirectoryCallCount = 0;
+      });
+
+      tearDownAll(() async {
+        await Hive.deleteBoxFromDisk('hydrated_box');
       });
 
       test('calls getTemporaryDirectory when storageDirectory is null',
@@ -77,6 +77,10 @@ void main() {
       setUp(() {
         box = MockBox();
         storage = HydratedStorage(box);
+      });
+
+      tearDownAll(() async {
+        await storage.clear();
       });
 
       group('read', () {
@@ -137,9 +141,15 @@ void main() {
     });
 
     group('During heavy load', () {
+      Storage storage;
+
+      tearDownAll(() async {
+        await storage.clear();
+      });
+
       test('writes key/value pairs correctly', () async {
         const token = 'token';
-        var hydratedStorage = await HydratedStorage.build(
+        storage = await HydratedStorage.build(
           storageDirectory: Directory(cwd),
         );
         await Stream.fromIterable(
@@ -150,13 +160,13 @@ void main() {
             (i) => Iterable.generate(i, (j) => 'Point($i,$j);').toList(),
           ).toList();
 
-          unawaited(hydratedStorage.write(token, record));
+          unawaited(storage.write(token, record));
 
-          hydratedStorage = await HydratedStorage.build(
+          storage = await HydratedStorage.build(
             storageDirectory: Directory(cwd),
           );
 
-          final written = hydratedStorage.read(token) as List<List<String>>;
+          final written = storage.read(token) as List<List<String>>;
           expect(written, isNotNull);
           expect(written, record);
         }).drain<dynamic>();
