@@ -28,30 +28,32 @@ void main() {
       });
 
     group('build', () {
+      Storage storage;
+
       setUp(() async {
         await (await HydratedStorage.build()).clear();
         getTemporaryDirectoryCallCount = 0;
       });
 
       tearDownAll(() async {
-        await Hive.deleteBoxFromDisk('hydrated_box');
+        await storage?.clear();
       });
 
       test('calls getTemporaryDirectory when storageDirectory is null',
           () async {
-        await HydratedStorage.build();
+        storage = await HydratedStorage.build();
         expect(getTemporaryDirectoryCallCount, 1);
       });
 
       test(
           'does not call getTemporaryDirectory '
           'when storageDirectory is defined', () async {
-        await HydratedStorage.build(storageDirectory: Directory(cwd));
+        storage = await HydratedStorage.build(storageDirectory: Directory(cwd));
         expect(getTemporaryDirectoryCallCount, 0);
       });
 
       test('reuses existing instance when called multiple times', () async {
-        final instanceA = await HydratedStorage.build();
+        final instanceA = storage = await HydratedStorage.build();
         final beforeCount = getTemporaryDirectoryCallCount;
         final instanceB = await HydratedStorage.build();
         final afterCount = getTemporaryDirectoryCallCount;
@@ -60,7 +62,7 @@ void main() {
       });
 
       test('calls Hive.init with correct directory', () async {
-        await HydratedStorage.build();
+        storage = await HydratedStorage.build();
         final box = Hive.box<dynamic>('hydrated_box');
         final directory = await getTemporaryDirectory();
         expect(box, isNotNull);
@@ -80,7 +82,7 @@ void main() {
       });
 
       tearDownAll(() async {
-        await storage.clear();
+        await storage?.clear();
       });
 
       group('read', () {
@@ -144,7 +146,7 @@ void main() {
       Storage storage;
 
       tearDownAll(() async {
-        await storage.clear();
+        await storage?.clear();
       });
 
       test('writes key/value pairs correctly', () async {
