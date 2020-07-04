@@ -27,16 +27,16 @@ void main() {
         throw UnimplementedError();
       });
 
-    group('build', () {
-      Storage storage;
+    Storage storage;
 
+    tearDown(() async {
+      await storage?.clear();
+    });
+
+    group('build', () {
       setUp(() async {
         await (await HydratedStorage.build()).clear();
         getTemporaryDirectoryCallCount = 0;
-      });
-
-      tearDownAll(() async {
-        await storage?.clear();
       });
 
       test('calls getTemporaryDirectory when storageDirectory is null',
@@ -74,15 +74,10 @@ void main() {
       const key = '__key__';
       const value = '__value__';
       Box box;
-      Storage storage;
 
       setUp(() {
         box = MockBox();
         storage = HydratedStorage(box);
-      });
-
-      tearDownAll(() async {
-        await storage?.clear();
       });
 
       group('read', () {
@@ -143,12 +138,6 @@ void main() {
     });
 
     group('During heavy load', () {
-      Storage storage;
-
-      tearDownAll(() async {
-        await storage?.clear();
-      });
-
       test('writes key/value pairs correctly', () async {
         const token = 'token';
         storage = await HydratedStorage.build(
