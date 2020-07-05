@@ -9,7 +9,7 @@ import 'package:hive/src/hive_impl.dart';
 
 void main() {
   group('Hive interference', () {
-    test('Odd singleton interference', () async {
+    test('odd singleton interference', () async {
       final cwd = Directory.current.absolute.path;
 
       final impl1 = Hive..init(cwd);
@@ -27,7 +27,7 @@ void main() {
       await Hive.deleteBoxFromDisk('impl2');
     });
 
-    test('Two hive impls beside same directory', () async {
+    test('two hive impls beside same directory', () async {
       final cwd = Directory.current.absolute.path;
 
       final impl1 = Hive..init(cwd);
@@ -57,7 +57,7 @@ void main() {
       expect(box2.isOpen, false);
     });
 
-    test('Two hive impls reside distinct directories', () async {
+    test('two hive impls reside distinct directories', () async {
       final cwd1 = p.join(Directory.current.absolute.path, 'cwd1');
       final cwd2 = p.join(Directory.current.absolute.path, 'cwd2');
 

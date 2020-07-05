@@ -61,9 +61,9 @@ void main() {
         expect(instanceA, instanceB);
       });
 
-      test('calls Hive.init with correct directory', () async {
+      test('creates own HiveImpl with correct directory', () async {
         storage = await HydratedStorage.build();
-        final box = Hive.box<dynamic>('hydrated_box');
+        final box = HydratedStorage.hive?.box<dynamic>('hydrated_box');
         final directory = await getTemporaryDirectory();
         expect(box, isNotNull);
         expect(box.path, p.join(directory.path, 'hydrated_box.hive'));
