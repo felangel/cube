@@ -61,7 +61,7 @@ void main() {
         expect(instanceA, instanceB);
       });
 
-      test('creates own HiveImpl with correct directory', () async {
+      test('creates internal HiveImpl with correct directory', () async {
         storage = await HydratedStorage.build();
         final box = HydratedStorage.hive?.box<dynamic>('hydrated_box');
         final directory = await getTemporaryDirectory();

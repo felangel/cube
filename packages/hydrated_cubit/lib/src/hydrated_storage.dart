@@ -54,6 +54,8 @@ class HydratedStorage implements Storage {
     return _lock.synchronized(() async {
       if (_instance != null) return _instance;
       final directory = storageDirectory ?? await getTemporaryDirectory();
+      // Need to use HiveImpl directly to avoid conflicts with existing Hive initialization
+      // https://github.com/hivedb/hive/issues/336
       hive = HiveImpl();
       if (!kIsWeb) hive.init(directory.path);
       final box = await hive.openBox<dynamic>(
@@ -64,7 +66,8 @@ class HydratedStorage implements Storage {
     });
   }
 
-  /// Own instance of HiveImpl, to resolve interference
+  /// Internal instance of [HiveImpl].
+  /// It should only be used for testing.
   @visibleForTesting
   static HiveInterface hive;
 
