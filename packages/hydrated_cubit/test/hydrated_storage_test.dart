@@ -163,5 +163,37 @@ void main() {
         }).drain<dynamic>();
       });
     });
+
+    group('Storage interference', () {
+      final temp = p.join(cwd, 'temp');
+      final docs = p.join(cwd, 'docs');
+
+      tearDown(() async {
+        await Directory(temp).delete(recursive: true);
+        await Directory(docs).delete(recursive: true);
+      });
+
+      test('Hive and Hydrated default directories', () async {
+        Hive.init(docs);
+        storage = await HydratedStorage.build(
+          storageDirectory: Directory(temp),
+        );
+
+        var box = await Hive.openBox<String>('hive');
+        await box.put('name', 'hive');
+        expect(box.get('name'), 'hive');
+        await Hive.close();
+
+        Hive.init(docs);
+        box = await Hive.openBox<String>('hive');
+        try {
+          expect(box.get('name'), isNotNull);
+          expect(box.get('name'), 'hive');
+        } finally {
+          await storage.clear();
+          await Hive.close();
+        }
+      });
+    });
   });
 }
