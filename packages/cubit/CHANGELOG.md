@@ -1,3 +1,7 @@
+# 0.2.0-dev.1
+
+- **BREAKING**: do not emit current state on subscription
+
 # 0.1.2
 
 - revert: `v0.1.1`

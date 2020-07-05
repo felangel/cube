@@ -78,7 +78,7 @@ void main() {
         final cubit = CounterCubit();
         await cubit.close();
         cubit.increment();
-        await expectLater(cubit, emitsInOrder(<Matcher>[equals(0), emitsDone]));
+        await expectLater(cubit, emitsInOrder(<Matcher>[emitsDone]));
       });
 
       test('emits states in the correct order', () async {
@@ -88,7 +88,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.increment);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1]);
+        expect(states, [1]);
       });
 
       test('does not emit duplicate states', () async {
@@ -105,7 +105,7 @@ void main() {
           ..emitState(3);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 3]);
+        expect(states, [1, 2, 3]);
       });
     });
 
@@ -118,26 +118,39 @@ void main() {
         await cubit.close();
       });
 
-      test('receives initial state immediately upon subscribing', () async {
+      test('does not receive current state upon subscribing', () async {
         final states = <int>[];
         final cubit = CounterCubit()..listen(states.add);
         await cubit.close();
-        expect(states, [equals(0)]);
+        expect(states, isEmpty);
       });
 
-      test('receives fake async states immediately upon subscribing', () async {
+      test('receives single async state', () async {
         final states = <int>[];
-        final cubit = FakeAsyncCounterCubit()..skip(1).listen(states.add);
-        await Future.delayed(Duration.zero, cubit.increment);
+        final cubit = FakeAsyncCounterCubit()..listen(states.add);
+        await cubit.increment();
         await cubit.close();
         expect(states, [equals(1)]);
       });
 
+      test('receives multiple async states', () async {
+        final states = <int>[];
+        final cubit = FakeAsyncCounterCubit()..listen(states.add);
+        await cubit.increment();
+        await cubit.increment();
+        await cubit.increment();
+        await cubit.close();
+        expect(states, [equals(1), equals(2), equals(3)]);
+      });
+
       test('can call listen multiple times', () async {
         final states = <int>[];
-        final cubit = CounterCubit()..listen(states.add)..listen(states.add);
+        final cubit = CounterCubit()
+          ..listen(states.add)
+          ..listen(states.add)
+          ..increment();
         await cubit.close();
-        expect(states, [equals(0), equals(0)]);
+        expect(states, [equals(1), equals(1)]);
       });
     });
 

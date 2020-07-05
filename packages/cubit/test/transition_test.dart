@@ -26,7 +26,7 @@ class CounterState extends TransitionState {
 void main() {
   group('Transition', () {
     group('== operator', () {
-      test('should return true if 2 Transitions are equal', () {
+      test('should return true if transitions are equal', () {
         final transitionA = Transition<CounterState>(
           currentState: CounterState(0),
           nextState: CounterState(1),
@@ -39,7 +39,7 @@ void main() {
         expect(transitionA == transitionB, isTrue);
       });
 
-      test('should return false if 2 Transitions are not equal', () {
+      test('should return false if transitions are not equal', () {
         final transitionA = Transition<CounterState>(
           currentState: CounterState(0),
           nextState: CounterState(1),

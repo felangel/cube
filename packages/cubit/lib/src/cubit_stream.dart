@@ -53,7 +53,7 @@ abstract class CubitStream<State> extends Stream<State> {
     void Function() onDone,
     bool cancelOnError,
   }) {
-    return _stream.listen(
+    return _controller.stream.listen(
       onData,
       onError: onError,
       onDone: onDone,
@@ -74,10 +74,5 @@ abstract class CubitStream<State> extends Stream<State> {
   Future<void> close() async {
     await _controller.close();
     await _controller.stream.drain<State>();
-  }
-
-  Stream<State> get _stream async* {
-    yield state;
-    yield* _controller.stream;
   }
 }
