@@ -1,3 +1,7 @@
+# 0.3.0-dev.1
+
+- **BREAKING**: upgrade to cubit `^0.2.0`
+
 # 0.2.0
 
 - **BREAKING**: rename `clear` to `clearHistory`

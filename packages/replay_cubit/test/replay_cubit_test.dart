@@ -77,7 +77,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0]);
+        expect(states, isEmpty);
       });
 
       test('does nothing when limit is 0', () async {
@@ -88,7 +88,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1]);
+        expect(states, [1]);
       });
 
       test('loses history outside of limit', () async {
@@ -101,7 +101,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1]);
+        expect(states, [1, 2, 1]);
       });
 
       test('reverts to initial state', () async {
@@ -112,7 +112,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 0]);
+        expect(states, [1, 0]);
       });
 
       test('reverts to previous state with multiple state changes ', () async {
@@ -124,7 +124,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1]);
+        expect(states, [1, 2, 1]);
       });
     });
 
@@ -136,7 +136,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0]);
+        expect(states, isEmpty);
       });
 
       test('does nothing when no undos have occurred', () async {
@@ -148,7 +148,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2]);
+        expect(states, [1, 2]);
       });
 
       test('works when one undo has occurred', () async {
@@ -161,7 +161,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1, 2]);
+        expect(states, [1, 2, 1, 2]);
       });
 
       test('does nothing when undos have been exhausted', () async {
@@ -175,7 +175,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1, 2]);
+        expect(states, [1, 2, 1, 2]);
       });
 
       test(
@@ -191,7 +191,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1, 0]);
+        expect(states, [1, 2, 1, 0]);
       });
     });
   });
@@ -268,7 +268,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0]);
+        expect(states, isEmpty);
       });
 
       test('does nothing when limit is 0', () async {
@@ -279,7 +279,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1]);
+        expect(states, [1]);
       });
 
       test('loses history outside of limit', () async {
@@ -292,7 +292,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1]);
+        expect(states, [1, 2, 1]);
       });
 
       test('reverts to initial state', () async {
@@ -303,7 +303,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 0]);
+        expect(states, [1, 0]);
       });
 
       test('reverts to previous state with multiple state changes ', () async {
@@ -315,7 +315,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.undo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1]);
+        expect(states, [1, 2, 1]);
       });
     });
 
@@ -327,7 +327,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0]);
+        expect(states, isEmpty);
       });
 
       test('does nothing when no undos have occurred', () async {
@@ -339,7 +339,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2]);
+        expect(states, [1, 2]);
       });
 
       test('works when one undo has occurred', () async {
@@ -352,7 +352,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1, 2]);
+        expect(states, [1, 2, 1, 2]);
       });
 
       test('does nothing when undos have been exhausted', () async {
@@ -366,7 +366,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1, 2]);
+        expect(states, [1, 2, 1, 2]);
       });
 
       test(
@@ -382,7 +382,7 @@ void main() {
         await Future<void>.delayed(Duration.zero, cubit.redo);
         await cubit.close();
         await subscription.cancel();
-        expect(states, [0, 1, 2, 1, 0]);
+        expect(states, [1, 2, 1, 0]);
       });
     });
   });
