@@ -13,8 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cubit:
-    path: ../cubit
+  cubit: ^0.2.0-dev.1
   provider: ^4.1.3
 
 dev_dependencies:

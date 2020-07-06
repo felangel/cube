@@ -8,8 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cubit:
-    path: ../../cubit
+  cubit: ^0.2.0-dev.1
   flutter_cubit:
     path: ../
 

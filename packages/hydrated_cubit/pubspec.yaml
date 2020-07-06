@@ -13,8 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.8
-  cubit:
-    path: ../cubit
+  cubit: ^0.2.0-dev.1
   hive: ^1.4.1+1
   synchronized: ^2.2.0
   path_provider: ^1.6.5

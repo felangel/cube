@@ -10,8 +10,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  cubit:
-    path: ../cubit
+  cubit: ^0.2.0-dev.1
 
 dev_dependencies:
   test: ^1.14.6
