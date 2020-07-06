@@ -162,7 +162,7 @@ class _CubitBuilderBaseState<C extends CubitStream<S>, S>
 
   void _subscribe() {
     if (_cubit != null) {
-      _subscription = _cubit.skip(1).listen((state) {
+      _subscription = _cubit.listen((state) {
         if (widget.buildWhen?.call(_previousState, state) ?? true) {
           setState(() {
             _state = state;

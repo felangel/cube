@@ -181,7 +181,7 @@ class _CubitListenerBaseState<C extends CubitStream<S>, S>
 
   void _subscribe() {
     if (_cubit != null) {
-      _subscription = _cubit.skip(1).listen((state) {
+      _subscription = _cubit.listen((state) {
         if (widget.listenWhen?.call(_previousState, state) ?? true) {
           widget.listener(context, state);
         }
