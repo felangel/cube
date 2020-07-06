@@ -84,7 +84,7 @@ void main() {
         await Future<void>.delayed(Duration.zero);
         cubit.increment();
         Timer(const Duration(milliseconds: 10), expectAsync0(() {
-          verify(ref.markForCheck()).called(2);
+          verify(ref.markForCheck()).called(1);
         }));
       });
     });
