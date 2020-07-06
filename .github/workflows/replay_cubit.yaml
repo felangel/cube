@@ -22,7 +22,7 @@ jobs:
         working-directory: packages/replay_cubit
     runs-on: ubuntu-latest
     container:
-      image: google/dart:2.8.3
+      image: google/dart:latest
     steps:
       - uses: actions/checkout@v2
       - name: Install Dependencies
