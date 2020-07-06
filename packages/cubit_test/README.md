@@ -46,7 +46,7 @@ expect(counterCubit.state, equals(3));
 
 `act` is an optional callback which will be invoked with the `cubit` under test and should be used to interact with the `cubit`.
 
-`skip` is an optional `int` which can be used to skip any number of states. The default value is 1 which skips the `initialState` of the cubit. `skip` can be overridden to include the `initialState` by setting skip to 0.
+`skip` is an optional `int` which can be used to skip any number of states. The default value is 0.
 
 `wait` is an optional `Duration` which can be used to wait for async operations within the `cubit` under test such as `debounceTime`.
 
@@ -71,15 +71,15 @@ group('CounterCubit', () {
 });
 ```
 
-`cubitTest` can also be used to `skip` any number of emitted states before asserting against the expected states. The default value is 1 which skips the `initialState` of the cubit. `skip` can be overridden to include the `initialState` by setting skip to 0.
+`cubitTest` can also be used to `skip` any number of emitted states before asserting against the expected states. The default value is 0.
 
 ```dart
 cubitTest(
-  'CounterCubit emits [0, 1] when increment is called',
+  'CounterCubit emits [2] when increment is called twice',
   build: () async => CounterCubit(),
-  act: (cubit) async => cubit.increment(),
-  skip: 0,
-  expect: [0, 1],
+  act: (cubit) async => cubit..increment()..increment(),
+  skip: 1,
+  expect: [2],
 );
 ```
 

@@ -1,3 +1,8 @@
+# 0.2.0-dev.1
+
+- **BREAKING**: upgrade to cubit `^0.2.0`
+- **BREAKING**: `skip` defaults to `0` since `cubits` no longer emit upon subscribing.
+
 # 0.1.1
 
 - fix: upgrade to `cubit: ^0.1.2`

@@ -20,13 +20,6 @@ void main() {
       );
 
       cubitTest<CounterCubit, int>(
-        'emits [0] when nothing is called and skip: 0',
-        build: () async => CounterCubit(),
-        skip: 0,
-        expect: <int>[0],
-      );
-
-      cubitTest<CounterCubit, int>(
         'emits [1] when increment is called',
         build: () async => CounterCubit(),
         act: (cubit) async => cubit.increment(),
@@ -64,13 +57,6 @@ void main() {
       );
 
       cubitTest<AsyncCounterCubit, int>(
-        'emits [0] when nothing is called and skip: 0',
-        build: () async => AsyncCounterCubit(),
-        skip: 0,
-        expect: <int>[0],
-      );
-
-      cubitTest<AsyncCounterCubit, int>(
         'emits [1] when increment is called',
         build: () async => AsyncCounterCubit(),
         act: (cubit) async => cubit.increment(),
@@ -98,13 +84,6 @@ void main() {
       );
 
       cubitTest<DelayedCounterCubit, int>(
-        'emits [0] when nothing is called and skip: 0',
-        build: () async => DelayedCounterCubit(),
-        skip: 0,
-        expect: <int>[0],
-      );
-
-      cubitTest<DelayedCounterCubit, int>(
         'emits [] when increment is called without wait',
         build: () async => DelayedCounterCubit(),
         act: (cubit) async => cubit.increment(),
@@ -125,13 +104,6 @@ void main() {
         'emits [] when nothing is called',
         build: () async => MultiCounterCubit(),
         expect: <int>[],
-      );
-
-      cubitTest<MultiCounterCubit, int>(
-        'emits [0] when nothing is called and skip: 0',
-        build: () async => MultiCounterCubit(),
-        skip: 0,
-        expect: <int>[0],
       );
 
       cubitTest<MultiCounterCubit, int>(
@@ -162,13 +134,6 @@ void main() {
       );
 
       cubitTest<ComplexCubit, ComplexState>(
-        'emits [ComplexStateA] when nothing is called and skip: 0',
-        build: () async => ComplexCubit(),
-        skip: 0,
-        expect: <Matcher>[isA<ComplexStateA>()],
-      );
-
-      cubitTest<ComplexCubit, ComplexState>(
         'emits [ComplexStateB] when emitB is called',
         build: () async => ComplexCubit(),
         act: (cubit) async => cubit.emitB(),
@@ -187,13 +152,6 @@ void main() {
         'emits [] when nothing is called',
         build: () async => SideEffectCounterCubit(repository),
         expect: <int>[],
-      );
-
-      cubitTest<SideEffectCounterCubit, int>(
-        'emits [0] when nothing is called and skip: 0',
-        build: () async => SideEffectCounterCubit(repository),
-        skip: 0,
-        expect: <int>[0],
       );
 
       cubitTest<SideEffectCounterCubit, int>(

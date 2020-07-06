@@ -302,17 +302,7 @@ void main() {
       final counterCubit = MockCounterCubit();
       whenListen<CounterCubit, int>(counterCubit, controller.stream);
       final sumCubit = SumCubit(counterCubit);
-      unawaited(expectLater(sumCubit, emitsInOrder(<int>[0, 1, 3, 6])));
-      controller..add(0)..add(1)..add(2)..add(3);
-      await controller.close();
-    });
-
-    test('can mock the state of a cubit dependency', () async {
-      final controller = StreamController<int>();
-      final counterCubit = MockCounterCubit();
-      whenListen<CounterCubit, int>(counterCubit, controller.stream);
-      final sumCubit = SumCubit(counterCubit);
-      unawaited(expectLater(sumCubit, emitsInOrder(<int>[0, 1, 3, 6])));
+      unawaited(expectLater(sumCubit, emitsInOrder(<int>[1, 3, 6])));
       controller..add(0)..add(1)..add(2)..add(3);
       await controller.close();
       expect(sumCubit.state, equals(6));

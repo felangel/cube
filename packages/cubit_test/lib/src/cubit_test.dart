@@ -17,8 +17,7 @@ import 'package:test/test.dart' as test;
 /// test and should be used to interact with the `cubit`.
 ///
 /// [skip] is an optional `int` which can be used to skip any number of states.
-/// The default value is 1 which skips the `initialState` of the cubit.
-/// [skip] can be overridden to include the `initialState` by setting it to 0.
+/// [skip] defaults to 0.
 ///
 /// [wait] is an optional `Duration` which can be used to wait for
 /// async operations within the `cubit` under test such as `debounceTime`.
@@ -40,29 +39,17 @@ import 'package:test/test.dart' as test;
 /// );
 /// ```
 ///
-/// [cubitTest] can also be used to test the initial state of the `cubit`
-/// by omitting [act].
-///
-/// ```dart
-/// cubitTest(
-///   'CounterCubit emits [] when nothing is called',
-///   build: () async => CounterCubit(),
-///   expect: [],
-/// );
-/// ```
-///
 /// [cubitTest] can also be used to [skip] any number of emitted states
 /// before asserting against the expected states.
-/// The default value is 1 which skips the initial state of the cubit.
-/// [skip] can be overridden to include the initial state` by setting it to 0.
+/// The default value is 0.
 ///
 /// ```dart
 /// cubitTest(
-///   'CounterCubit emits [0, 1] when increment is called',
+///   'CounterCubit emits [2] when increment is called twice',
 ///   build: () async => CounterCubit(),
-///   act: (cubit) async => cubit.increment(),
-///   skip: 0,
-///   expect: [0, 1],
+///   act: (cubit) async => cubit..increment()..increment(),
+///   skip: 1,
+///   expect: [2],
 /// );
 /// ```
 ///
@@ -111,7 +98,7 @@ void cubitTest<C extends CubitStream<State>, State>(
   @required Future<C> Function() build,
   Future<void> Function(C cubit) act,
   Duration wait,
-  int skip = 1,
+  int skip = 0,
   Iterable expect,
   Future<void> Function(C cubit) verify,
 }) {
@@ -121,7 +108,6 @@ void cubitTest<C extends CubitStream<State>, State>(
         final cubit = await build();
         final states = <State>[];
         final subscription = cubit.skip(skip).listen(states.add);
-        await Future<void>.delayed(Duration.zero);
         await act?.call(cubit);
         if (wait != null) await Future<void>.delayed(wait);
         await cubit.close();
