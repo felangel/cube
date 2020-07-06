@@ -158,17 +158,17 @@ packages:
   cubit:
     dependency: "direct main"
     description:
-      name: cubit
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.8"
+      path: "../../packages/cubit"
+      relative: true
+    source: path
+    version: "0.2.0-dev.1"
   cubit_test:
     dependency: "direct dev"
     description:
-      name: cubit_test
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.5"
+      path: "../../packages/cubit_test"
+      relative: true
+    source: path
+    version: "0.2.0-dev.1"
   dart_style:
     dependency: transitive
     description:
@@ -191,10 +191,10 @@ packages:
   flutter_cubit:
     dependency: "direct main"
     description:
-      name: flutter_cubit
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.10"
+      path: "../../packages/flutter_cubit"
+      relative: true
+    source: path
+    version: "0.2.0-dev.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter

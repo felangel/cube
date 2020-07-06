@@ -1,6 +1,6 @@
 import 'package:cubit_test/cubit_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_weather/app/weather/weather_cubit.dart';
+import 'package:flutter_weather/app/app.dart';
 import 'package:flutter_weather/service/service.dart';
 import 'package:matcher/matcher.dart';
 import 'package:mockito/mockito.dart';

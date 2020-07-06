@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cubit/flutter_cubit.dart';
-import 'package:flutter_weather/app/weather/weather_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_weather/app/app.dart';
