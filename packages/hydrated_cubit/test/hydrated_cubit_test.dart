@@ -19,19 +19,14 @@ class MyUuidHydratedCubit extends HydratedCubit<String> {
 }
 
 class MyCallbackHydratedCubit extends HydratedCubit<int> {
-  MyCallbackHydratedCubit({this.onToJsonCalled, this.onFromJsonCalled})
-      : super(0);
+  MyCallbackHydratedCubit({this.onFromJsonCalled}) : super(0);
 
-  final ValueSetter<int> onToJsonCalled;
   final ValueSetter<dynamic> onFromJsonCalled;
 
   void increment() => emit(state + 1);
 
   @override
-  Map<String, int> toJson(int state) {
-    onToJsonCalled?.call(state);
-    return {'value': state};
-  }
+  Map<String, int> toJson(int state) => {'value': state};
 
   @override
   int fromJson(dynamic json) {
@@ -101,6 +96,24 @@ void main() {
     });
 
     test(
+        'does not deserialize state on subsequent state changes '
+        'when cache value exists', () {
+      final fromJsonCalls = <dynamic>[];
+      when<dynamic>(storage.read('MyCallbackHydratedCubit')).thenReturn(
+        {'value': 42},
+      );
+      final cubit = MyCallbackHydratedCubit(
+        onFromJsonCalled: fromJsonCalls.add,
+      );
+      expect(cubit.state, 42);
+      cubit.increment();
+      expect(cubit.state, 43);
+      expect(fromJsonCalls, [
+        {'value': 42}
+      ]);
+    });
+
+    test(
         'does not read from storage on subsequent state changes '
         'when cache is empty', () {
       when<dynamic>(storage.read('MyCallbackHydratedCubit')).thenReturn(null);
@@ -109,6 +122,18 @@ void main() {
       cubit.increment();
       expect(cubit.state, 1);
       verify<dynamic>(storage.read('MyCallbackHydratedCubit')).called(1);
+    });
+
+    test('does not deserialize state when cache is empty', () {
+      final fromJsonCalls = <dynamic>[];
+      when<dynamic>(storage.read('MyCallbackHydratedCubit')).thenReturn(null);
+      final cubit = MyCallbackHydratedCubit(
+        onFromJsonCalled: fromJsonCalls.add,
+      );
+      expect(cubit.state, 0);
+      cubit.increment();
+      expect(cubit.state, 1);
+      expect(fromJsonCalls, isEmpty);
     });
 
     test(
@@ -120,6 +145,18 @@ void main() {
       cubit.increment();
       expect(cubit.state, 1);
       verify<dynamic>(storage.read('MyCallbackHydratedCubit')).called(1);
+    });
+
+    test('does not deserialize state when cache is malformed', () {
+      final fromJsonCalls = <dynamic>[];
+      when<dynamic>(storage.read('MyCallbackHydratedCubit')).thenReturn('{');
+      final cubit = MyCallbackHydratedCubit(
+        onFromJsonCalled: fromJsonCalls.add,
+      );
+      expect(cubit.state, 0);
+      cubit.increment();
+      expect(cubit.state, 1);
+      expect(fromJsonCalls, isEmpty);
     });
 
     group('SingleHydratedCubit', () {
