@@ -1,6 +1,6 @@
 # 0.1.3
 
-- fix: excessive `fromJson` invocations
+- fix: excessive storage reads `fromJson` invocations
 - docs: minor documentation improvements
 
 # 0.1.2
