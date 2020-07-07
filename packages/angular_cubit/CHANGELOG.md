@@ -1,3 +1,7 @@
+# 0.1.0-dev.4
+
+- fix: restrict `meta` version in `dev_dependencies`
+
 # 0.1.0-dev.3
 
 - fix: upgrade to cubit `v0.1.2`
