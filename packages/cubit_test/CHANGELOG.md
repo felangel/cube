@@ -1,6 +1,6 @@
 # 0.1.1
 
-- feat: upgrade to `cubit: ^0.1.2`
+- fix: upgrade to `cubit: ^0.1.2`
 - fix: support breaking `StreamQueue` change in `async: 2.4.2`
   - https://github.com/dart-lang/async/issues/122
   - https://github.com/dart-lang/async/pull/123
