@@ -1,6 +1,7 @@
 # 0.1.0-dev.4
 
-- fix: restrict `meta` version in `dev_dependencies`
+- chore: restrict `meta` version in `dev_dependencies`
+- docs: minor documentation updates
 
 # 0.1.0-dev.3
 
